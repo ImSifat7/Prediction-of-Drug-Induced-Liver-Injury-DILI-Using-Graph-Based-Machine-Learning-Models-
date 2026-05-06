@@ -1,0 +1,15 @@
+{
+  "method": "grid_search",
+  "best_value": 0.6707070707070708,
+  "params": {
+    "lr": 0.0005,
+    "weight_decay": 0.001,
+    "hidden_dim": 64,
+    "num_layers": 3,
+    "dropout": 0.3,
+    "optimizer_name": "adam",
+    "batch_size": 32,
+    "num_steps": 3
+  },
+  "n_combos": 27
+}

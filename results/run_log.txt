@@ -1,0 +1,90 @@
+[device] cpu
+
+=== 1. Loading data ===
+[data] raw=881  cleaned/uniq=869  graphable=869
+[data] atom_feat_dim=53  bond_feat_dim=7
+
+=== 2. Scaffold split (60/20/20) ===
+train=521  val=173  test=175
+
+=== 3. Statistical parity (class distribution per split) ===
+  train n= 521  pos=310  neg=211  pos_ratio=0.595
+  val   n= 173  pos=110  neg= 63  pos_ratio=0.636
+  test  n= 175  pos=108  neg= 67  pos_ratio=0.617
+
+=== 4. Hyperparameter tuning (Optuna TPE + Grid Search) ===
+
+-- GCN --
+  optuna best val AUROC = 0.7030
+  grid   best val AUROC = 0.6775  (27 combos)
+  -> chosen: method=optuna_tpe  val AUROC=0.7030
+
+-- GAT --
+  optuna best val AUROC = 0.6911
+  grid   best val AUROC = 0.6971  (27 combos)
+  -> chosen: method=grid_search  val AUROC=0.6971
+
+-- GraphSAGE --
+  optuna best val AUROC = 0.6753
+  grid   best val AUROC = 0.6957  (27 combos)
+  -> chosen: method=grid_search  val AUROC=0.6957
+
+-- GIN --
+  optuna best val AUROC = 0.7208
+  grid   best val AUROC = 0.7346  (27 combos)
+  -> chosen: method=grid_search  val AUROC=0.7346
+
+-- MPNN --
+  optuna best val AUROC = 0.6801
+  grid   best val AUROC = 0.6707  (27 combos)
+  -> chosen: method=optuna_tpe  val AUROC=0.6801
+
+=== 5-6. Final evaluation (multi-seed retrain on held-out test) ===
+
+-- GCN --
+  seed=42 best_val_auc=0.7601 test_auc=0.7000
+  seed=7 best_val_auc=0.7204 test_auc=0.6559
+
+-- GAT --
+  seed=42 best_val_auc=0.7672 test_auc=0.6906
+  seed=7 best_val_auc=0.7092 test_auc=0.6556
+
+-- GraphSAGE --
+  seed=42 best_val_auc=0.7381 test_auc=0.7044
+  seed=7 best_val_auc=0.7143 test_auc=0.6553
+
+-- GIN --
+  seed=42 best_val_auc=0.8078 test_auc=0.6882
+  seed=7 best_val_auc=0.7357 test_auc=0.6875
+
+-- MPNN --
+  seed=42 best_val_auc=0.7531 test_auc=0.6917
+  seed=7 best_val_auc=0.7184 test_auc=0.6140
+
+=== 7. Statistical significance ===
+
+=== 8b. GNN ensemble + threshold tuning ===
+GNN ensemble  thr=0.50  AUROC=0.7128  ACC=0.6400  F1=0.7249  MCC=0.2119
+[gnn] wrote C:\Users\sifat\Desktop\dili_project\results\gnn_test_probs.npz and gnn_val_probs.npz
+
+DILI improved pipeline summary  (elapsed 83.3 min)
+Dataset: n=869  pos=528
+Splits  train/val/test = 521/173/175
+
+Final results (mean +/- std over 2 seeds, sorted by AUROC):
+  GIN        AUROC=0.6879+/-0.0003 (CI 0.630-0.794)  ACC=0.6686  F1=0.7427  MCC=0.2823
+  GraphSAGE  AUROC=0.6799+/-0.0245 (CI 0.640-0.788)  ACC=0.6571  F1=0.7400  MCC=0.2477
+  GCN        AUROC=0.6779+/-0.0220 (CI 0.621-0.775)  ACC=0.6457  F1=0.7157  MCC=0.2460
+  GAT        AUROC=0.6731+/-0.0175 (CI 0.612-0.768)  ACC=0.6343  F1=0.6744  MCC=0.2729
+  MPNN       AUROC=0.6528+/-0.0388 (CI 0.604-0.762)  ACC=0.6457  F1=0.7633  MCC=0.1773
+
+Threshold-tuned (val-MCC) metrics on held-out test:
+  GCN            thr=0.55  AUROC=0.6971  ACC=0.6400  F1=0.6441  MCC=0.3468
+  GAT            thr=0.49  AUROC=0.6928  ACC=0.6571  F1=0.7030  MCC=0.3062
+  GraphSAGE      thr=0.54  AUROC=0.7145  ACC=0.6571  F1=0.7196  MCC=0.2786
+  GIN            thr=0.53  AUROC=0.7164  ACC=0.6914  F1=0.7477  MCC=0.3508
+  MPNN           thr=0.57  AUROC=0.6827  ACC=0.6743  F1=0.7397  MCC=0.3050
+  GNN-Ensemble   thr=0.50  AUROC=0.7128  ACC=0.6400  F1=0.7249  MCC=0.2119
+
+All outputs written under: C:\Users\sifat\Desktop\dili_project\results
+Tuned configs under:        C:\Users\sifat\Desktop\dili_project\configs

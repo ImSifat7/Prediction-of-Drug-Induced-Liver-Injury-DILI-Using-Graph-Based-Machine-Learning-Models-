@@ -1,0 +1,138 @@
+[chemberta] model=DeepChem/ChemBERTa-77M-MTR  seeds=[42, 7, 13]  epochs=25
+[chemberta] loading data
+[data] raw=881  cleaned/uniq=869  graphable=869
+[data] atom_feat_dim=53  bond_feat_dim=7
+[chemberta] split  tr=521 va=173 te=175
+[chemberta] device=cpu
+
+[chemberta] === seed 42 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 35866.10it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+regression.out_proj.weight | UNEXPECTED | 
+norm_std                   | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+classifier.out_proj.weight | MISSING    | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  seed=42 ep01 loss=0.5620 val_auc=0.5147 best=0.5147 (20s)
+  seed=42 ep02 loss=0.5571 val_auc=0.5440 best=0.5440 (20s)
+  seed=42 ep03 loss=0.5533 val_auc=0.5811 best=0.5811 (22s)
+  seed=42 ep04 loss=0.5483 val_auc=0.5962 best=0.5962 (20s)
+  seed=42 ep05 loss=0.5422 val_auc=0.6192 best=0.6192 (22s)
+  seed=42 ep06 loss=0.5348 val_auc=0.6408 best=0.6408 (22s)
+  seed=42 ep07 loss=0.5257 val_auc=0.6561 best=0.6561 (21s)
+  seed=42 ep08 loss=0.5137 val_auc=0.6709 best=0.6709 (22s)
+  seed=42 ep09 loss=0.5006 val_auc=0.6825 best=0.6825 (20s)
+  seed=42 ep10 loss=0.4883 val_auc=0.6938 best=0.6938 (21s)
+  seed=42 ep11 loss=0.4712 val_auc=0.6983 best=0.6983 (20s)
+  seed=42 ep12 loss=0.4593 val_auc=0.7035 best=0.7035 (21s)
+  seed=42 ep13 loss=0.4439 val_auc=0.7061 best=0.7061 (20s)
+  seed=42 ep14 loss=0.4316 val_auc=0.7088 best=0.7088 (20s)
+  seed=42 ep15 loss=0.4194 val_auc=0.7074 best=0.7088 (20s)
+  seed=42 ep16 loss=0.4106 val_auc=0.7029 best=0.7088 (20s)
+  seed=42 ep17 loss=0.3996 val_auc=0.7033 best=0.7088 (20s)
+  seed=42 ep18 loss=0.3843 val_auc=0.7036 best=0.7088 (20s)
+  seed=42 ep19 loss=0.3792 val_auc=0.7016 best=0.7088 (20s)
+  seed=42 early stop at ep19
+[chemberta] seed=42 best_val_auc=0.7088 test_auc=0.6690 elapsed=395s
+
+[chemberta] === seed 7 ===
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 28099.88it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+regression.out_proj.weight | UNEXPECTED | 
+norm_std                   | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+classifier.out_proj.weight | MISSING    | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  seed=7 ep01 loss=0.5591 val_auc=0.5944 best=0.5944 (20s)
+  seed=7 ep02 loss=0.5547 val_auc=0.6271 best=0.6271 (20s)
+  seed=7 ep03 loss=0.5511 val_auc=0.6556 best=0.6556 (21s)
+  seed=7 ep04 loss=0.5462 val_auc=0.6792 best=0.6792 (21s)
+  seed=7 ep05 loss=0.5401 val_auc=0.6885 best=0.6885 (23s)
+  seed=7 ep06 loss=0.5314 val_auc=0.6882 best=0.6885 (21s)
+  seed=7 ep07 loss=0.5229 val_auc=0.6952 best=0.6952 (20s)
+  seed=7 ep08 loss=0.5115 val_auc=0.7030 best=0.7030 (20s)
+  seed=7 ep09 loss=0.5009 val_auc=0.7069 best=0.7069 (20s)
+  seed=7 ep10 loss=0.4885 val_auc=0.7160 best=0.7160 (20s)
+  seed=7 ep11 loss=0.4769 val_auc=0.7206 best=0.7206 (20s)
+  seed=7 ep12 loss=0.4657 val_auc=0.7287 best=0.7287 (20s)
+  seed=7 ep13 loss=0.4492 val_auc=0.7330 best=0.7330 (20s)
+  seed=7 ep14 loss=0.4401 val_auc=0.7304 best=0.7330 (20s)
+  seed=7 ep15 loss=0.4295 val_auc=0.7309 best=0.7330 (20s)
+  seed=7 ep16 loss=0.4161 val_auc=0.7277 best=0.7330 (20s)
+  seed=7 ep17 loss=0.4057 val_auc=0.7261 best=0.7330 (20s)
+  seed=7 ep18 loss=0.3935 val_auc=0.7273 best=0.7330 (20s)
+  seed=7 early stop at ep18
+[chemberta] seed=7 best_val_auc=0.7330 test_auc=0.6719 elapsed=370s
+
+[chemberta] === seed 13 ===
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 16240.36it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+regression.out_proj.weight | UNEXPECTED | 
+norm_std                   | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+classifier.out_proj.weight | MISSING    | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  seed=13 ep01 loss=0.5619 val_auc=0.5325 best=0.5325 (20s)
+  seed=13 ep02 loss=0.5573 val_auc=0.5824 best=0.5824 (21s)
+  seed=13 ep03 loss=0.5542 val_auc=0.6071 best=0.6071 (20s)
+  seed=13 ep04 loss=0.5493 val_auc=0.6185 best=0.6185 (20s)
+  seed=13 ep05 loss=0.5447 val_auc=0.6332 best=0.6332 (20s)
+  seed=13 ep06 loss=0.5378 val_auc=0.6447 best=0.6447 (20s)
+  seed=13 ep07 loss=0.5293 val_auc=0.6545 best=0.6545 (20s)
+  seed=13 ep08 loss=0.5188 val_auc=0.6633 best=0.6633 (20s)
+  seed=13 ep09 loss=0.5070 val_auc=0.6746 best=0.6746 (20s)
+  seed=13 ep10 loss=0.4943 val_auc=0.6856 best=0.6856 (20s)
+  seed=13 ep11 loss=0.4798 val_auc=0.6924 best=0.6924 (20s)
+  seed=13 ep12 loss=0.4686 val_auc=0.6980 best=0.6980 (20s)
+  seed=13 ep13 loss=0.4542 val_auc=0.7055 best=0.7055 (20s)
+  seed=13 ep14 loss=0.4389 val_auc=0.7095 best=0.7095 (20s)
+  seed=13 ep15 loss=0.4234 val_auc=0.7113 best=0.7113 (20s)
+  seed=13 ep16 loss=0.4086 val_auc=0.7136 best=0.7136 (20s)
+  seed=13 ep17 loss=0.4006 val_auc=0.7137 best=0.7137 (20s)
+  seed=13 ep18 loss=0.3866 val_auc=0.7110 best=0.7137 (20s)
+  seed=13 ep19 loss=0.3752 val_auc=0.7094 best=0.7137 (20s)
+  seed=13 ep20 loss=0.3652 val_auc=0.7100 best=0.7137 (20s)
+  seed=13 ep21 loss=0.3533 val_auc=0.7120 best=0.7137 (20s)
+  seed=13 ep22 loss=0.3333 val_auc=0.7105 best=0.7137 (20s)
+  seed=13 early stop at ep22
+[chemberta] seed=13 best_val_auc=0.7137 test_auc=0.6855 elapsed=446s
+
+[chemberta] mean-of-3  AUROC=0.6762  ACC=0.6857  F1=0.7619  MCC=0.3110
+[chemberta] total elapsed 1212s
