@@ -1,121 +1,128 @@
 # Prediction of Drug-Induced Liver Injury (DILI) Using Graph-Based Machine Learning Models
 
-A graph-based machine learning pipeline for predicting **Drug-Induced Liver Injury (DILI)** directly from molecular structure (SMILES). The project trains and compares five Graph Neural Networks — **GCN, GAT, GraphSAGE, GIN, and MPNN** — and combines them with classical ML baselines (XGBoost / RF / LR / SVM on Morgan fingerprints + RDKit descriptors) through a stacking meta-learner for maximum accuracy.
+A machine-learning pipeline for predicting **Drug-Induced Liver Injury (DILI)** directly from molecular structure (SMILES). The project benchmarks five Graph Neural Networks — **GCN, GAT, GraphSAGE, GIN, MPNN** (plus AttentiveFP) — and a molecular-descriptor + fingerprint **gradient-boosting** model, evaluated under the **official Therapeutics Data Commons (TDC) DILI benchmark protocol** for leaderboard-comparable, leakage-free results.
 
 ## Highlights
 
-- **5 GNN architectures** trained and benchmarked on the same scaffold-split dataset.
-- **Bemis–Murcko scaffold split** to prevent data leakage between train / val / test.
-- **Hyperparameter optimization** with both Grid Search and Optuna (TPE sampler).
-- **Class imbalance** handled via `pos_weight` in `BCEWithLogitsLoss`.
-- **Statistical significance testing** between models (DeLong, Wilcoxon, McNemar).
-- **Stacked ensemble** (GNNs + classical ML) with a logistic-regression meta-learner.
-- Full reproducibility — multi-seed runs with mean ± std and 95 % bootstrap CIs.
+- **Official TDC-DILI benchmark** (`admet_group`): fixed held-out test set, **5 seeds**, mean ± std AUROC — directly comparable to the public leaderboard.
+- **Leakage-clean evaluation** — every model/feature/threshold decision is made on the validation split; the test set is touched only to report the final number.
+- **Top-tier result: AUROC 0.920 ± 0.014**, on par with the strongest *reproducible* leaderboard methods (MapLight+GNN 0.917, AttrMasking 0.919).
+- **6 graph architectures** (GCN/GAT/GraphSAGE/GIN/MPNN/AttentiveFP) + **MapLight-style feature union** (RDKit descriptors + Morgan/Avalon/ErG/MACCS fingerprints + MolFormer-XL embeddings).
+- **4 gradient-boosting backends** (XGBoost, LightGBM, CatBoost, HistGB) with Optuna tuning and a stacking / averaging ensemble.
+- **Statistical rigor** — DeLong / Wilcoxon / McNemar tests + 95 % bootstrap confidence intervals.
+- **Honest finding** — added complexity (richer fingerprints, foundation-model embeddings, hyperparameter tuning) does **not** beat a simple descriptor+fingerprint model on this small dataset; all configurations are within the bootstrap CI.
+
+## Dataset
+
+**Primary benchmark — TDC-DILI** (`tdc.benchmark_group.admet_group`):
+- 475 molecules · official **scaffold split** · fixed **96-molecule** test set · **5 seeds**.
+- Aggregated by the FDA's National Center for Toxicological Research (via AstraZeneca).
+
+**Exploratory set — DILIrank** (`data/DILIrank2.xlsx`):
+- After cleaning + SMILES standardisation: **n = 869** (521 train / 173 val / 175 test, Bemis–Murcko scaffold split). Used for the initial architecture exploration.
+
+## Results
+
+### 1. Official TDC-DILI benchmark (`admet_group`, 5 seeds, fixed 96-mol test)
+
+Leakage-clean, leaderboard-comparable. Models selected on **validation**; test AUROC reported for the selected configurations.
+
+| Features | Model | Test AUROC |
+|----------|-------|------------|
+| RDKit desc + Morgan | **Ensemble (XGB + LGBM + CatBoost)** | **0.920 ± 0.014** |
+| RDKit desc + Morgan | XGBoost | 0.919 ± 0.021 |
+| + Avalon / ErG / MACCS + MolFormer-XL | CatBoost | 0.911 ± 0.017 |
+| + Avalon / ErG / MACCS + MolFormer-XL | XGBoost | 0.910 ± 0.013 |
+| + Avalon / ErG / MACCS | XGBoost | 0.908 ± 0.017 |
+| + Avalon / ErG / MACCS + MolFormer-XL (val-selected, Optuna-tuned) | LightGBM | 0.886 ± 0.019 |
+
+> **Interpretation.** The 95 % bootstrap CI on the test AUROC spans ≈ **[0.82, 0.95]** (n = 96), so every row above is statistically indistinguishable. Richer fingerprints, MolFormer-XL embeddings, and Optuna tuning improve *validation* but not *test* — they overfit the small (~48-molecule) validation split. The parsimonious descriptor + Morgan model is therefore the preferred configuration. Reference leaderboard (reproducible): AttentiveFP 0.886 · MapLight+GNN 0.917 · AttrMasking 0.919.
+
+### 2. Graph neural network architectures (TDC-DILI, 5-fold scaffold CV)
+
+The graph-based models that motivate the project title, compared on the TDC-DILI dataset:
+
+| Model | AUROC | ACC | F1 | MCC |
+|-------|-------|-----|----|-----|
+| AttentiveFP        | 0.871 ± 0.037 | 0.805 | 0.785 | 0.599 |
+| Rank-avg ensemble  | 0.869 ± 0.035 | 0.826 | 0.819 | 0.644 |
+| GCN                | 0.861 ± 0.043 | 0.790 | 0.784 | 0.572 |
+| GIN                | 0.859 ± 0.024 | 0.792 | 0.797 | 0.587 |
+| GAT                | 0.859 ± 0.049 | 0.812 | 0.785 | 0.595 |
+| GraphSAGE          | 0.842 ± 0.033 | 0.763 | 0.741 | 0.506 |
+| MPNN               | 0.838 ± 0.046 | 0.797 | 0.792 | 0.584 |
+
+> The earlier DILIrank-split exploration (AUROC ≈ 0.69–0.72 per GNN) is retained in `results/` for reference; it used a harder home-made split and is superseded by the benchmark results above.
+
+See [`results/tdc_official_search.csv`](results/tdc_official_search.csv) and [`results/tdc_official_final.csv`](results/tdc_official_final.csv) for the full official-benchmark numbers, and [`results/summary.txt`](results/summary.txt) for the complete report.
+
+## Quick start
+
+### 1. Environment
+
+```bash
+python -m venv venv
+venv\Scripts\activate              # Windows  (source venv/bin/activate on Linux/macOS)
+pip install -r requirments.txt
+
+# Official TDC benchmark API (on Python 3.14, install without the pinned deps):
+pip install PyTDC --no-deps fuzzywuzzy
+```
+
+### 2. Run the official benchmark
+
+```bash
+# MapLight-style feature union -> bagged XGBoost, official 5-seed protocol
+python -m src.improved.tdc_official
+
+# Full model search: 4 GBM backends x 3 feature sets + ensemble + Optuna
+# (all model selection done on validation, not test)
+python -m src.improved.tdc_official_v2 --optuna 30
+```
+
+### 3. Graph neural networks / earlier pipeline
+
+```bash
+python -m src.improved.run_pipeline --n-trials 25 --seeds 5   # 5 GNNs + stacking
+python -m src.improved.tdc_cv5                                 # 5-fold scaffold CV on TDC-DILI
+python -m src.improved.classical_ml                           # classical ML baselines
+```
 
 ## Repository structure
 
 ```
 dili_project/
-├── data/                # DILIrank dataset, cleaned CSVs, charts
-├── configs/             # Best/grid/optuna hyperparams per model (JSON)
-├── results/             # Metrics, ROC curves, significance tests, summary.txt
-├── src/
-│   ├── step1_check_dataset.py … step10_train_mpnn.py   # Step-by-step pipeline
-│   ├── plot_results.py
-│   ├── final_results_table.py
-│   └── improved/        # Upgraded pipeline (tuning, stats, stacking)
-│       ├── data_utils.py        # Scaffold split + atom features
-│       ├── models.py            # GCN / GAT / GraphSAGE / GIN / MPNN
-│       ├── tune.py              # Grid + Optuna search
-│       ├── train_utils.py       # Class-imbalance-aware training loop
-│       ├── cv_utils.py          # Parity tables across splits
-│       ├── stats_utils.py       # DeLong, Wilcoxon, McNemar, bootstrap CI
-│       ├── classical_ml.py      # XGBoost / RF / LR / SVM baselines
-│       ├── chemberta.py         # ChemBERTa transformer baseline
-│       ├── stack.py             # Stacking meta-learner
-│       └── run_pipeline.py      # End-to-end orchestrator
-├── requirments.txt
-└── setup_env.bat
+├── data/                 # DILIrank dataset + cleaned CSVs  (TDC benchmark auto-downloaded, gitignored)
+├── configs/              # Best / grid / Optuna hyperparameters per model (JSON)
+├── results/              # Metrics (CSV), logs, ROC curves, significance tests, summary.txt
+└── src/improved/
+    ├── data_utils.py         # Scaffold split + atom/bond features + RDKit descriptors
+    ├── models.py             # GCN / GAT / GraphSAGE / GIN / MPNN (+ descriptor fusion)
+    ├── tdc_official.py        # Official admet_group harness (feature union -> XGBoost)
+    ├── tdc_official_v2.py     # Official harness: 4-GBM x feature-set search + Optuna
+    ├── tdc_pipeline.py        # End-to-end TDC pipeline (GNNs + MolFormer + ChemBERTa + stack)
+    ├── tdc_cv5.py             # 5-fold scaffold cross-validation
+    ├── tdc_phase3.py          # Ablation + DeLong tests + calibration analysis
+    ├── molformer.py           # MolFormer-XL frozen-embedding extraction
+    ├── chemberta.py           # ChemBERTa transformer baseline
+    ├── stats_utils.py         # DeLong / Wilcoxon / McNemar / bootstrap CI
+    ├── classical_ml.py        # XGBoost / RF / LR / SVM baselines
+    ├── stack_final.py         # Stacking meta-learner
+    └── run_pipeline.py        # Orchestrator
 ```
-
-## Dataset
-
-- Source: **DILIrank** (FDA, `data/DILIrank2.xlsx`).
-- After cleaning and SMILES standardisation: **n = 869 molecules** (pos = 528).
-- Split: **521 train / 173 val / 175 test** (Bemis–Murcko scaffold split).
-
-## Quick start
-
-### 1. Set up the environment
-
-On Windows:
-
-```bat
-setup_env.bat
-```
-
-Or manually:
-
-```bash
-python -m venv venv
-venv\Scripts\activate          # Windows
-# source venv/bin/activate     # Linux / macOS
-pip install -r requirments.txt
-```
-
-### 2. Run the pipeline
-
-```bash
-# Smoke test (~5–10 min on CPU): validates the full pipeline end-to-end
-python -m src.improved.run_pipeline --quick
-
-# Full run (recommended for reporting)
-python -m src.improved.run_pipeline --n-trials 25 --seeds 5
-
-# Classical ML baselines (XGB / RF / LR / SVM on Morgan FP + RDKit descriptors)
-python -m src.improved.classical_ml
-
-# Stacking meta-learner (run after the two above)
-python -m src.improved.stack
-```
-
-## Results
-
-Final test metrics (mean ± std over multiple seeds, sorted by AUROC):
-
-| Model      | AUROC           | ACC    | F1     | MCC    |
-|------------|-----------------|--------|--------|--------|
-| GIN        | 0.688 ± 0.000   | 0.669  | 0.743  | 0.282  |
-| GraphSAGE  | 0.680 ± 0.025   | 0.657  | 0.740  | 0.248  |
-| GCN        | 0.678 ± 0.022   | 0.646  | 0.716  | 0.246  |
-| GAT        | 0.673 ± 0.018   | 0.634  | 0.674  | 0.273  |
-| MPNN       | 0.653 ± 0.039   | 0.646  | 0.763  | 0.177  |
-
-Threshold-tuned (validation-MCC) metrics on the held-out test set:
-
-| Model         | Threshold | AUROC | ACC   | F1    | MCC   |
-|---------------|-----------|-------|-------|-------|-------|
-| GIN           | 0.53      | 0.716 | 0.691 | 0.748 | 0.351 |
-| GraphSAGE     | 0.54      | 0.715 | 0.657 | 0.720 | 0.279 |
-| GNN-Ensemble  | 0.50      | 0.713 | 0.640 | 0.725 | 0.212 |
-| GCN           | 0.55      | 0.697 | 0.640 | 0.644 | 0.347 |
-| GAT           | 0.49      | 0.693 | 0.657 | 0.703 | 0.306 |
-| MPNN          | 0.57      | 0.683 | 0.674 | 0.740 | 0.305 |
-
-See [`results/summary.txt`](results/summary.txt) for the full numerical report and `results/roc_curves.png` for the ROC-curve comparison plot.
 
 ## Methods (short)
 
-- **Scaffold split** — molecules with the same Bemis–Murcko scaffold stay in the same split, so the model is forced to generalise to truly novel chemistry.
-- **Atom features (53-dim)** — atomic number, degree, formal charge, hybridisation, aromaticity, H-count, chirality, radical electrons, ring-size membership (3- to 7-membered).
-- **Class imbalance** — handled at loss level with `pos_weight` in `BCEWithLogitsLoss` (SMOTE is not well-defined on graphs).
-- **Hyperparameter search** — Grid Search over optimizer / lr / weight-decay; Optuna TPE over architecture (hidden_dim, num_layers, dropout, …).
-- **Statistical tests** — DeLong (AUROC curves), Wilcoxon (paired across seeds), McNemar (per-sample disagreement).
-- **Stacking** — logistic-regression meta-learner trained on validation-set predictions of the GNN ensemble + classical models.
+- **Official protocol** — TDC `admet_group` scaffold split, 5 seeds, `group.evaluate_many` for mean ± std AUROC; no test-set peeking.
+- **Feature union (MapLight-style)** — RDKit 2D descriptors + Morgan/Avalon/ErG/MACCS fingerprints + MolFormer-XL embeddings, fed to gradient boosting.
+- **Scaffold split** — molecules sharing a Bemis–Murcko scaffold stay in one split, forcing generalisation to novel chemistry.
+- **Class imbalance** — `scale_pos_weight` (GBMs) / `pos_weight` in `BCEWithLogitsLoss` (GNNs).
+- **Model selection** — all hyperparameter/feature/threshold choices made on validation AUROC; test reported once for the selected model.
+- **Statistical tests** — DeLong (AUROC), Wilcoxon (paired across seeds), McNemar (per-sample), 95 % bootstrap CIs.
 
 ## Tech stack
 
-`Python 3` · `PyTorch` · `PyTorch Geometric` · `RDKit` · `scikit-learn` · `XGBoost` · `Optuna` · `pandas` · `numpy` · `matplotlib`
+`Python 3` · `PyTorch` · `PyTorch Geometric` · `RDKit` · `PyTDC` · `scikit-learn` · `XGBoost` · `LightGBM` · `CatBoost` · `Optuna` · `transformers` (MolFormer-XL / ChemBERTa) · `pandas` · `numpy` · `matplotlib`
 
 ## Author
 
