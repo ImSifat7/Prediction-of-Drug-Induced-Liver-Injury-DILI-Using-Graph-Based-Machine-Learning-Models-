@@ -1,0 +1,63 @@
+[stack_v2] full stack base columns: ['XGBoost', 'RandomForest', 'LogReg', 'SVM', 'GCN', 'GAT', 'GraphSAGE', 'GIN', 'MPNN', 'ChemBERTa', 'ChemBERTa_s42', 'ChemBERTa_s7', 'ChemBERTa_s13', 'ChemBERTa_s21', 'ChemBERTa_s100'] (n=15)
+  y_val n=173 pos=110  y_test n=175 pos=108
+  XGBoost available: True
+
+[base models]
+  XGBoost                 AUROC=0.6770  MCC=0.3006  ACC=0.6857  F1=0.7718
+  RandomForest            AUROC=0.7041  MCC=0.2655  ACC=0.6743  F1=0.7765
+  LogReg                  AUROC=0.6614  MCC=0.2081  ACC=0.6400  F1=0.7273
+  SVM                     AUROC=0.6504  MCC=0.2255  ACC=0.6229  F1=0.6796
+  GCN                     AUROC=0.6956  MCC=0.2654  ACC=0.6686  F1=0.7542
+  GAT                     AUROC=0.6933  MCC=0.2171  ACC=0.6114  F1=0.6600
+  GraphSAGE               AUROC=0.7022  MCC=0.2604  ACC=0.6686  F1=0.7583
+  GIN                     AUROC=0.7204  MCC=0.2919  ACC=0.6800  F1=0.7627
+  MPNN                    AUROC=0.6578  MCC=0.2027  ACC=0.6057  F1=0.6567
+  ChemBERTa               AUROC=0.6788  MCC=0.3407  ACC=0.7029  F1=0.7886
+  ChemBERTa_s42           AUROC=0.6690  MCC=0.3265  ACC=0.6971  F1=0.7837
+  ChemBERTa_s7            AUROC=0.6719  MCC=0.3023  ACC=0.6857  F1=0.7699
+  ChemBERTa_s13           AUROC=0.6855  MCC=0.3272  ACC=0.6971  F1=0.7819
+  ChemBERTa_s21           AUROC=0.6696  MCC=0.3415  ACC=0.7029  F1=0.7851
+  ChemBERTa_s100          AUROC=0.6849  MCC=0.3262  ACC=0.6971  F1=0.7854
+
+[classical-only]
+  classical-only  mean             thr=0.57  AUROC=0.6846  MCC=0.2031  ACC=0.6286  F1=0.7059
+  classical-only  rank-avg         thr=0.25  AUROC=0.7005  MCC=0.2965  ACC=0.6857  F1=0.7809
+  classical-only  logreg           thr=0.40  AUROC=0.6867  MCC=0.2844  ACC=0.6800  F1=0.7705
+  classical-only  xgb-bagged       thr=0.52  AUROC=0.6524  MCC=0.2027  ACC=0.6057  F1=0.6567
+  classical-only  xgb-bagged+iso   thr=0.37  AUROC=0.6655  MCC=0.2157  ACC=0.6457  F1=0.7350
+
+[gnn-only]
+  gnn-only        mean             thr=0.52  AUROC=0.7066  MCC=0.2665  ACC=0.6571  F1=0.7273
+  gnn-only        rank-avg         thr=0.35  AUROC=0.7061  MCC=0.2696  ACC=0.6629  F1=0.7378
+  gnn-only        logreg           thr=0.46  AUROC=0.7105  MCC=0.2522  ACC=0.6514  F1=0.7240
+  gnn-only        xgb-bagged       thr=0.40  AUROC=0.7040  MCC=0.3027  ACC=0.6686  F1=0.7290
+  gnn-only        xgb-bagged+iso   thr=0.51  AUROC=0.7063  MCC=0.3205  ACC=0.6629  F1=0.7065
+
+[chemberta-only]
+  chemberta-only  mean             thr=0.40  AUROC=0.6788  MCC=0.3407  ACC=0.7029  F1=0.7886
+  chemberta-only  rank-avg         thr=0.15  AUROC=0.6796  MCC=0.2655  ACC=0.6743  F1=0.7765
+  chemberta-only  logreg           thr=0.33  AUROC=0.6808  MCC=0.3119  ACC=0.6914  F1=0.7805
+  chemberta-only  xgb-bagged       thr=0.55  AUROC=0.6526  MCC=0.2255  ACC=0.6229  F1=0.6796
+  chemberta-only  xgb-bagged+iso   thr=0.44  AUROC=0.6639  MCC=0.2255  ACC=0.6229  F1=0.6796
+
+[full]
+  full            mean             thr=0.47  AUROC=0.7078  MCC=0.3263  ACC=0.6971  F1=0.7871
+  full            rank-avg         thr=0.23  AUROC=0.7067  MCC=0.2812  ACC=0.6800  F1=0.7778
+  full            logreg           thr=0.40  AUROC=0.7073  MCC=0.2913  ACC=0.6743  F1=0.7489
+  full            xgb-bagged       thr=0.30  AUROC=0.6657  MCC=0.2373  ACC=0.6514  F1=0.7336
+  full            xgb-bagged+iso   thr=0.53  AUROC=0.6839  MCC=0.1883  ACC=0.6000  F1=0.6535
+
+[stack_v2] wrote results/stack_v2_metrics.csv
+
+[stack_v2] top 10 variants by AUROC:
+     variant           method  threshold    AUROC      ACC       F1      MCC
+      single              GIN      0.440 0.720426 0.680000 0.762712 0.291913
+    gnn-only     logreg-stack      0.460 0.710475 0.651429 0.723982 0.252245
+        full             mean      0.470 0.707850 0.697143 0.787149 0.326329
+        full     logreg-stack      0.400 0.707297 0.674286 0.748899 0.291326
+        full         rank-avg      0.235 0.706675 0.680000 0.777778 0.281168
+    gnn-only             mean      0.520 0.706606 0.657143 0.727273 0.266464
+gnn-only+iso xgb-stack-bagged      0.515 0.706329 0.662857 0.706468 0.320525
+    gnn-only         rank-avg      0.350 0.706053 0.662857 0.737778 0.269573
+      single     RandomForest      0.490 0.704118 0.674286 0.776471 0.265510
+    gnn-only xgb-stack-bagged      0.405 0.703980 0.668571 0.728972 0.302685

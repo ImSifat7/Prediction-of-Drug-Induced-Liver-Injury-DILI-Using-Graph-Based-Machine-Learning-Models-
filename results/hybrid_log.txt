@@ -1,0 +1,30 @@
+[hybrid] device=cpu
+[hybrid] loading data + descriptors...
+[data] raw=881  cleaned/uniq=869  graphable=869
+[data] atom_feat_dim=54  bond_feat_dim=7  global_desc_dim=14
+[hybrid] computing Morgan FP-512 ...
+
+[hybrid] training GAT for embedding extraction...
+  trained in 15s  best_val_auc=0.7055
+  GAT embedding shape: (869, 128)
+
+[hybrid] training GIN for embedding extraction...
+  trained in 7s  best_val_auc=0.6742
+  GIN embedding shape: (869, 128)
+
+[hybrid] training GraphSAGE for embedding extraction...
+  trained in 7s  best_val_auc=0.6975
+  GraphSAGE embedding shape: (869, 128)
+
+[hybrid] combined feature matrix: (869, 910)
+
+[hybrid] training XGBoost...
+  Hybrid-XGBoost  thr=0.53  AUROC=0.6925  ACC=0.7200  F1=0.7932  MCC=0.3843
+
+[hybrid] ablation: GNN_emb + descriptors (no FP) -> XGBoost
+  Hybrid-XGBoost (no FP)  thr=0.70  AUROC=0.6776  ACC=0.6743  F1=0.7467  MCC=0.2945
+
+[hybrid] ablation: FP-only -> XGBoost (reference baseline)
+  XGBoost on FP-only  thr=0.23  AUROC=0.6635  ACC=0.6743  F1=0.7782  MCC=0.2659
+
+[hybrid] wrote C:\Users\sifat\Desktop\dili_project\results\hybrid_metrics.csv

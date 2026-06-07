@@ -1,0 +1,130 @@
+[stack_final] base columns (41): ['XGBoost', 'RandomForest', 'LogReg', 'SVM', 'GCN', 'GAT', 'GraphSAGE', 'GIN', 'MPNN', 'ChemBERTa_s42', 'ChemBERTa_s7', 'ChemBERTa_s13', 'ChemBERTa_s21', 'ChemBERTa_s100', 'hybrid', 'hybrid_no_fp', 'fp_only', 'molformer', 'tox21_NR-AR', 'tox21_NR-AR-LBD', 'tox21_NR-AhR', 'tox21_NR-Aromatase', 'tox21_NR-ER', 'tox21_NR-ER-LBD', 'tox21_NR-PPAR-gamma', 'tox21_SR-ARE', 'tox21_SR-ATAD5', 'tox21_SR-HSE', 'tox21_SR-MMP', 'tox21_SR-p53', 'tox21_mean', 'specialists_hard', 'specialists_soft', 'molformerFT_s42', 'molformerFT_s7', 'molformerFT_s13', 'hybrid_deep', 'ChemBERTaEXP_s42', 'ChemBERTaEXP_s7', 'ChemBERTaEXP_s13', 'molformerEXP']
+
+[individual base models]
+  XGBoost                 AUROC=0.6770  ACC=0.6857  F1=0.7718  MCC=0.3006
+  RandomForest            AUROC=0.7041  ACC=0.6743  F1=0.7765  MCC=0.2655
+  LogReg                  AUROC=0.6614  ACC=0.6400  F1=0.7273  MCC=0.2081
+  SVM                     AUROC=0.6504  ACC=0.6229  F1=0.6796  MCC=0.2255
+  GCN                     AUROC=0.6956  ACC=0.6686  F1=0.7542  MCC=0.2654
+  GAT                     AUROC=0.6917  ACC=0.6057  F1=0.6349  MCC=0.2360
+  GraphSAGE               AUROC=0.6897  ACC=0.6400  F1=0.7319  MCC=0.2009
+  GIN                     AUROC=0.7204  ACC=0.6800  F1=0.7627  MCC=0.2919
+  MPNN                    AUROC=0.6534  ACC=0.6343  F1=0.6832  MCC=0.2591
+  ChemBERTa_s42           AUROC=0.6668  ACC=0.6857  F1=0.7755  MCC=0.2980
+  ChemBERTa_s7            AUROC=0.6660  ACC=0.6971  F1=0.7686  MCC=0.3391
+  ChemBERTa_s13           AUROC=0.6755  ACC=0.6343  F1=0.6863  MCC=0.2541
+  ChemBERTa_s21           AUROC=0.6700  ACC=0.6971  F1=0.7764  MCC=0.3309
+  ChemBERTa_s100          AUROC=0.6604  ACC=0.6914  F1=0.7823  MCC=0.3115
+  hybrid                  AUROC=0.6925  ACC=0.7143  F1=0.7899  MCC=0.3704
+  hybrid_no_fp            AUROC=0.6776  ACC=0.6743  F1=0.7467  MCC=0.2945
+  fp_only                 AUROC=0.6635  ACC=0.6743  F1=0.7782  MCC=0.2659
+  molformer               AUROC=0.7034  ACC=0.5771  F1=0.5542  MCC=0.2549
+  tox21_NR-AR             AUROC=0.5141  ACC=0.3771  F1=0.0354  MCC=-0.0766
+  tox21_NR-AR-LBD         AUROC=0.5341  ACC=0.4000  F1=0.1985  MCC=-0.0416
+  tox21_NR-AhR            AUROC=0.5585  ACC=0.4857  F1=0.4444  MCC=0.0681
+  tox21_NR-Aromatase      AUROC=0.5068  ACC=0.6286  F1=0.7601  MCC=0.1119
+  tox21_NR-ER             AUROC=0.3897  ACC=0.3657  F1=0.1527  MCC=-0.1459
+  tox21_NR-ER-LBD         AUROC=0.4149  ACC=0.4343  F1=0.4072  MCC=-0.0600
+  tox21_NR-PPAR-gamma     AUROC=0.5867  ACC=0.4457  F1=0.2240  MCC=0.1393
+  tox21_SR-ARE            AUROC=0.5605  ACC=0.5200  F1=0.5579  MCC=0.0564
+  tox21_SR-ATAD5          AUROC=0.5368  ACC=0.4800  F1=0.4052  MCC=0.0868
+  tox21_SR-HSE            AUROC=0.5109  ACC=0.6171  F1=0.7616  MCC=0.0259
+  tox21_SR-MMP            AUROC=0.5828  ACC=0.6286  F1=0.7529  MCC=0.1235
+  tox21_SR-p53            AUROC=0.5788  ACC=0.4914  F1=0.4671  MCC=0.0644
+  tox21_mean              AUROC=0.5457  ACC=0.5429  F1=0.6190  MCC=0.0489
+  specialists_hard        AUROC=0.6976  ACC=0.6971  F1=0.7837  MCC=0.3265
+  specialists_soft        AUROC=0.6994  ACC=0.6686  F1=0.7500  MCC=0.2710
+  molformerFT_s42         AUROC=0.6007  ACC=0.5829  F1=0.6697  MCC=0.1048
+  molformerFT_s7          AUROC=0.6164  ACC=0.5886  F1=0.6697  MCC=0.1244
+  molformerFT_s13         AUROC=0.6255  ACC=0.6114  F1=0.6909  MCC=0.1685
+  hybrid_deep             AUROC=0.7195  ACC=0.6743  F1=0.7765  MCC=0.2655
+  ChemBERTaEXP_s42        AUROC=0.6745  ACC=0.6686  F1=0.7364  MCC=0.2910
+  ChemBERTaEXP_s7         AUROC=0.6723  ACC=0.6800  F1=0.7522  MCC=0.3055
+  ChemBERTaEXP_s13        AUROC=0.6949  ACC=0.7029  F1=0.7719  MCC=0.3531
+  molformerEXP            AUROC=0.6321  ACC=0.6857  F1=0.7860  MCC=0.2990
+
+[full = classical + GNN + ChemBERTa-seeds + Hybrid]
+  full                 mean               thr=0.53  AUROC=0.7305  ACC=0.6914  F1=0.7500  MCC=0.3470
+  full                 rank-avg           thr=0.39  AUROC=0.6994  ACC=0.7086  F1=0.7866  MCC=0.3564
+  full                 geom-mean          thr=0.41  AUROC=0.7329  ACC=0.6857  F1=0.7773  MCC=0.2971
+  full                 median             thr=0.50  AUROC=0.7141  ACC=0.6800  F1=0.7477  MCC=0.3120
+  gnn+hybrid           mean               thr=0.54  AUROC=0.7287  ACC=0.6971  F1=0.7686  MCC=0.3391
+  cb+hybrid            mean               thr=0.52  AUROC=0.7159  ACC=0.7086  F1=0.7848  MCC=0.3576
+  3-way                weighted-equal     thr=0.52  AUROC=0.7127  ACC=0.7029  F1=0.7778  MCC=0.3467
+  3-way                weighted-cb+hy-heavy thr=0.53  AUROC=0.7095  ACC=0.7143  F1=0.7863  MCC=0.3728
+  3-way                weighted-hy-slightheavy thr=0.57  AUROC=0.7112  ACC=0.7029  F1=0.7679  MCC=0.3584
+  3-way                weighted-no-gnn    thr=0.48  AUROC=0.7019  ACC=0.7086  F1=0.7901  MCC=0.3551
+  4-way                weighted-equal4    thr=0.46  AUROC=0.7369  ACC=0.7029  F1=0.7920  MCC=0.3416
+  4-way                weighted-gnn-light4 thr=0.50  AUROC=0.7354  ACC=0.7029  F1=0.7903  MCC=0.3409
+  4-way                weighted-no-gnn4   thr=0.48  AUROC=0.7358  ACC=0.7143  F1=0.7984  MCC=0.3703
+  4-way                weighted-no-gnn4-cbheavy thr=0.49  AUROC=0.7358  ACC=0.7143  F1=0.7984  MCC=0.3703
+  4-way                weighted-hy-heavy4 thr=0.47  AUROC=0.7359  ACC=0.7029  F1=0.7920  MCC=0.3416
+  4-way                weighted-mf-light  thr=0.57  AUROC=0.7276  ACC=0.7257  F1=0.7931  MCC=0.4003
+  4-way                weighted-mf-hy-heavy thr=0.65  AUROC=0.7381  ACC=0.7143  F1=0.7727  MCC=0.3889
+  pair                 cb+mf-0.5_0.5      thr=0.76  AUROC=0.7206  ACC=0.5486  F1=0.5093  MCC=0.2121
+  pair                 hy+mf-0.5_0.5      thr=0.67  AUROC=0.7374  ACC=0.7143  F1=0.7748  MCC=0.3860
+  pair                 gnn+mf-0.5_0.5     thr=0.70  AUROC=0.7261  ACC=0.6229  F1=0.6489  MCC=0.2744
+  pair                 hy+mf-0.6_0.4      thr=0.62  AUROC=0.7354  ACC=0.7086  F1=0.7773  MCC=0.3646
+
+[stack_final] Tox21-mean-of-12 alone:  val n=173 test n=175
+  5-way                weighted-equal5    thr=0.45  AUROC=0.7337  ACC=0.7086  F1=0.7952  MCC=0.3560
+  5-way                weighted-tx-light  thr=0.47  AUROC=0.7362  ACC=0.7086  F1=0.7952  MCC=0.3560
+  5-way                weighted-no-gnn5   thr=0.58  AUROC=0.7345  ACC=0.7200  F1=0.7783  MCC=0.3997
+  5-way                weighted-tx-very-light thr=0.49  AUROC=0.7392  ACC=0.7143  F1=0.7967  MCC=0.3695
+  5-way                weighted-no-gnn5-tx-light thr=0.57  AUROC=0.7383  ACC=0.7314  F1=0.7911  MCC=0.4194
+  5-way                weighted-mf-heavy5 thr=0.49  AUROC=0.7373  ACC=0.7200  F1=0.8000  MCC=0.3835
+  6-way                weighted-even6     thr=0.49  AUROC=0.7417  ACC=0.7200  F1=0.8000  MCC=0.3835
+  6-way                weighted-no-gnn6   thr=0.59  AUROC=0.7423  ACC=0.7257  F1=0.7857  MCC=0.4081
+  6-way                weighted-sp-light  thr=0.49  AUROC=0.7400  ACC=0.7200  F1=0.8000  MCC=0.3835
+  6-way                weighted-no-gnn6-tx-heavy thr=0.59  AUROC=0.7396  ACC=0.7257  F1=0.7838  MCC=0.4107
+  6-way                weighted-no-gnn6-tx-light thr=0.61  AUROC=0.7406  ACC=0.7257  F1=0.7838  MCC=0.4107
+  6-way                weighted-sp-medium thr=0.59  AUROC=0.7420  ACC=0.7257  F1=0.7857  MCC=0.4081
+  6-way                weighted-no-gnn6-balanced thr=0.61  AUROC=0.7413  ACC=0.7200  F1=0.7783  MCC=0.3997
+  G-mix                weighted-G-light-mix thr=0.60  AUROC=0.7380  ACC=0.7257  F1=0.7857  MCC=0.4081
+  G-mix                weighted-G-balanced-mix thr=0.52  AUROC=0.7369  ACC=0.7257  F1=0.8033  MCC=0.3974
+  G-mix                weighted-G-no-exp-baseline thr=0.57  AUROC=0.7383  ACC=0.7314  F1=0.7911  MCC=0.4194
+  G-mix                weighted-G-exp-only thr=0.61  AUROC=0.7121  ACC=0.7314  F1=0.7965  MCC=0.4139
+  G-mix                weighted-G-with-sp thr=0.48  AUROC=0.7427  ACC=0.7200  F1=0.8000  MCC=0.3835
+  super                all-cols-logreg    thr=0.59  AUROC=0.6942  ACC=0.6057  F1=0.6349  MCC=0.2360
+  super                all-cols-logreg-C0.1 thr=0.39  AUROC=0.7268  ACC=0.6971  F1=0.7837  MCC=0.3265
+
+[stack_final] wrote results/stack_final_metrics.csv
+
+[stack_final] top 10 by MCC:
+variant                     method  threshold    AUROC      ACC       F1      MCC
+  G-mix weighted-G-no-exp-baseline      0.575 0.738253 0.731429 0.791111 0.419414
+  5-way  weighted-no-gnn5-tx-light      0.575 0.738253 0.731429 0.791111 0.419414
+  G-mix        weighted-G-exp-only      0.610 0.712134 0.731429 0.796537 0.413932
+  6-way  weighted-no-gnn6-tx-heavy      0.590 0.739635 0.725714 0.783784 0.410652
+  6-way  weighted-no-gnn6-tx-light      0.615 0.740603 0.725714 0.783784 0.410652
+  6-way         weighted-sp-medium      0.590 0.741985 0.725714 0.785714 0.408113
+  G-mix       weighted-G-light-mix      0.600 0.737977 0.725714 0.785714 0.408113
+  6-way           weighted-no-gnn6      0.590 0.742261 0.725714 0.785714 0.408113
+  4-way          weighted-mf-light      0.570 0.727612 0.725714 0.793103 0.400316
+  5-way           weighted-no-gnn5      0.585 0.734522 0.720000 0.778281 0.399715
+
+[stack_final] top 10 by ACC:
+variant                     method  threshold    AUROC      ACC       F1      MCC
+  G-mix weighted-G-no-exp-baseline      0.575 0.738253 0.731429 0.791111 0.419414
+  5-way  weighted-no-gnn5-tx-light      0.575 0.738253 0.731429 0.791111 0.419414
+  G-mix        weighted-G-exp-only      0.610 0.712134 0.731429 0.796537 0.413932
+  6-way  weighted-no-gnn6-tx-heavy      0.590 0.739635 0.725714 0.783784 0.410652
+  6-way  weighted-no-gnn6-tx-light      0.615 0.740603 0.725714 0.783784 0.410652
+  6-way         weighted-sp-medium      0.590 0.741985 0.725714 0.785714 0.408113
+  G-mix       weighted-G-light-mix      0.600 0.737977 0.725714 0.785714 0.408113
+  6-way           weighted-no-gnn6      0.590 0.742261 0.725714 0.785714 0.408113
+  4-way          weighted-mf-light      0.570 0.727612 0.725714 0.793103 0.400316
+  G-mix    weighted-G-balanced-mix      0.520 0.736871 0.725714 0.803279 0.397408
+
+[stack_final] top 10 by AUROC:
+variant                    method  threshold    AUROC      ACC       F1      MCC
+  G-mix        weighted-G-with-sp      0.485 0.742676 0.720000 0.800000 0.383535
+  6-way          weighted-no-gnn6      0.590 0.742261 0.725714 0.785714 0.408113
+  6-way        weighted-sp-medium      0.590 0.741985 0.725714 0.785714 0.408113
+  6-way            weighted-even6      0.495 0.741708 0.720000 0.800000 0.383535
+  6-way weighted-no-gnn6-balanced      0.615 0.741294 0.720000 0.778281 0.399715
+  6-way weighted-no-gnn6-tx-light      0.615 0.740603 0.725714 0.783784 0.410652
+  6-way         weighted-sp-light      0.490 0.740050 0.720000 0.800000 0.383535
+  6-way weighted-no-gnn6-tx-heavy      0.590 0.739635 0.725714 0.783784 0.410652
+  5-way    weighted-tx-very-light      0.495 0.739221 0.714286 0.796748 0.369505
+  5-way weighted-no-gnn5-tx-light      0.575 0.738253 0.731429 0.791111 0.419414

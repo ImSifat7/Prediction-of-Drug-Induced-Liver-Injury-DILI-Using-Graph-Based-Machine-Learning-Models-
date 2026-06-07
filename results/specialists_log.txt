@@ -1,0 +1,27 @@
+[specialists] K=4  temperature=2.0
+[data] raw=881  cleaned/uniq=869  graphable=869
+[data] atom_feat_dim=54  bond_feat_dim=7  global_desc_dim=14
+[specialists] loading MolFormer embeddings (cached) ...
+  MolFormer embeddings: (869, 768)
+[specialists] computing Morgan FPs ...
+[specialists] gathering descriptors from graphs ...
+[specialists] loading Tox21 12-endpoint predictions ...
+  Tox21 predictions: (869, 12)
+[specialists] combined feature matrix: (869, 1306)
+
+[specialists] K-means clustering on MolFormer embeddings (K=4) ...
+  cluster sizes (train): [ 86  74  82 279]
+  cluster sizes (val):   [17 18 45 93]
+  cluster sizes (test):  [ 14  16  44 101]
+  [cluster 0] trained on n=86 (pos=29 neg=57 pos_rate=0.34)
+  [cluster 1] trained on n=74 (pos=35 neg=39 pos_rate=0.47)
+  [cluster 2] trained on n=82 (pos=56 neg=26 pos_rate=0.68)
+  [cluster 3] trained on n=279 (pos=190 neg=89 pos_rate=0.68)
+
+[specialists] Hard routing (argmax cluster):
+  thr=0.82  AUROC=0.6079  ACC=0.5200  F1=0.5532  MCC=0.0620
+
+[specialists] Soft routing (softmax cluster, T=2.0):
+  thr=0.79  AUROC=0.6229  ACC=0.5600  F1=0.5444  MCC=0.2061
+
+[specialists] wrote results/specialists_*.npz + specialists_per_cluster.csv

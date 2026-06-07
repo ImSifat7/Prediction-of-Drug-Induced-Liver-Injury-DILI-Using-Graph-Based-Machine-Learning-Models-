@@ -1,0 +1,90 @@
+[phase3] base columns (20)
+
+=== HEADLINE ENSEMBLE (full geom-mean, MCC-tuned) ===
+  AUROC      0.8856
+  ACC        0.8105
+  F1         0.8525
+  MCC        0.5910
+  Precision  0.8254
+  Recall     0.8814
+  Brier      0.1381
+
+=== ABLATION (drop one base, report AUROC delta) ===
+  drop GCN                       AUROC=0.8861  dAUROC=+0.0005
+  drop GAT                       AUROC=0.8842  dAUROC=-0.0014
+  drop GraphSAGE                 AUROC=0.8856  dAUROC=+0.0000
+  drop GIN                       AUROC=0.8832  dAUROC=-0.0024
+  drop MPNN                      AUROC=0.8842  dAUROC=-0.0014
+  drop molformer                 AUROC=0.8856  dAUROC=+0.0000
+  drop ChemBERTa_s42             AUROC=0.8851  dAUROC=-0.0005
+  drop ChemBERTa_s7              AUROC=0.8851  dAUROC=-0.0005
+  drop ChemBERTa_s13             AUROC=0.8818  dAUROC=-0.0038
+  drop hybrid                    AUROC=0.8870  dAUROC=+0.0014
+  drop specialists_soft          AUROC=0.8832  dAUROC=-0.0024
+  drop AttentiveFP_s42           AUROC=0.8861  dAUROC=+0.0005
+  drop AttentiveFP_s7            AUROC=0.8856  dAUROC=+0.0000
+  drop AttentiveFP_s13           AUROC=0.8851  dAUROC=-0.0005
+  drop ChemBERTaTTA              AUROC=0.8828  dAUROC=-0.0028
+  drop CBTTA_s42                 AUROC=0.8847  dAUROC=-0.0009
+  drop CBTTA_s7                  AUROC=0.8847  dAUROC=-0.0009
+  drop CBTTA_s13                 AUROC=0.8837  dAUROC=-0.0019
+  drop CBTTA_s21                 AUROC=0.8828  dAUROC=-0.0028
+  drop CBTTA_s100                AUROC=0.8823  dAUROC=-0.0033
+
+[saved] results/tdc_ablation.csv
+
+=== DELONG TESTS: base-vs-ensemble (test set) ===
+  ens vs GCN                       d=+0.0325  p=0.1791
+  ens vs GAT                       d=+0.0315  p=0.2777
+  ens vs GraphSAGE                 d=+0.0504  p=0.0359*
+  ens vs GIN                       d=+0.0772  p=0.0111*
+  ens vs MPNN                      d=+0.0565  p=0.0389*
+  ens vs molformer                 d=+0.0772  p=0.0316*
+  ens vs ChemBERTa_s42             d=+0.0890  p=0.0085*
+  ens vs ChemBERTa_s7              d=+0.0372  p=0.1311
+  ens vs ChemBERTa_s13             d=+0.0297  p=0.1889
+  ens vs hybrid                    d=+0.0579  p=0.0147*
+  ens vs specialists_soft          d=+0.0626  p=0.0419*
+  ens vs AttentiveFP_s42           d=+0.0965  p=0.0106*
+  ens vs AttentiveFP_s7            d=+0.0645  p=0.0074*
+  ens vs AttentiveFP_s13           d=+0.0377  p=0.1782
+  ens vs ChemBERTaTTA              d=-0.0080  p=0.6655
+  ens vs CBTTA_s42                 d=+0.0556  p=0.0625
+  ens vs CBTTA_s7                  d=+0.0028  p=0.8982
+  ens vs CBTTA_s13                 d=-0.0033  p=0.8491
+  ens vs CBTTA_s21                 d=-0.0085  p=0.6925
+  ens vs CBTTA_s100                d=-0.0066  p=0.7524
+
+=== DELONG TESTS: top-3 bases pairwise ===
+  CBTTA_s21              vs ChemBERTaTTA           d=+0.0005  p=0.9416
+  CBTTA_s21              vs CBTTA_s100             d=+0.0019  p=0.8420
+  ChemBERTaTTA           vs CBTTA_s100             d=+0.0014  p=0.8784
+
+[saved] results/tdc_delong.csv
+
+=== CALIBRATION ANALYSIS ===
+  Before isotonic: ECE=0.1126  Brier=0.1381
+  After isotonic:  ECE=0.0936  Brier=0.1472
+  Calibrated metrics: AUROC=0.8357  ACC=0.8105  F1=0.8525  MCC=0.5910
+[saved] reliability tables
+
+=== CONFUSION MATRIX (geom-mean, ACC-tuned thr=0.450) ===
+            Pred 0   Pred 1
+  True 0        25       11
+  True 1         4       55
+  Sens (TPR) = 0.9322
+  Spec (TNR) = 0.6944
+  PPV (Prec) = 0.8333
+  NPV        = 0.8621
+
+[saved] results/tdc_headline_metrics.csv
+
+=== HEADLINE (TDC DILI, isotonic-calibrated, geom-mean ensemble) ===
+  AUROC      = 0.8357
+  Accuracy   = 0.8105
+  F1         = 0.8525
+  MCC        = 0.5910
+  Precision  = 0.8254
+  Recall     = 0.8814
+  Brier      = 0.1472
+  ECE        = 0.0936

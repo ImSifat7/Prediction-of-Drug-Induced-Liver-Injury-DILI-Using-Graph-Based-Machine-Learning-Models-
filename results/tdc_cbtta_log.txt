@@ -1,0 +1,254 @@
+[cb-tta] device=cpu
+[cb-tta] n=472 tr/va/te=330/47/95
+[cb-tta] scale_pos_weight=1.276
+
+[cb-tta] seed 42 (1/5) ...
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 29802.67it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.dense.weight    | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+  sd=42 ep01 loss=0.7772 val_tta=0.6646 best=0.6646 (27s)
+  sd=42 ep02 loss=0.7710 val_tta=0.8063 best=0.8063 (26s)
+  sd=42 ep03 loss=0.7630 val_tta=0.8708 best=0.8708 (27s)
+  sd=42 ep04 loss=0.7569 val_tta=0.8750 best=0.8750 (26s)
+  sd=42 ep06 loss=0.7221 val_tta=0.8833 best=0.8833 (26s)
+  sd=42 ep08 loss=0.6483 val_tta=0.8625 best=0.8833 (16s)
+  sd=42 ep10 loss=0.5212 val_tta=0.8521 best=0.8833 (16s)
+  sd=42 ep12 loss=0.4484 val_tta=0.8646 best=0.8833 (17s)
+  sd=42 ep14 loss=0.4137 val_tta=0.8542 best=0.8833 (17s)
+  sd=42 ep16 loss=0.3911 val_tta=0.8583 best=0.8833 (16s)
+  sd=42 early-stop ep16
+  --> sd=42 val_TTA=0.8833 test_TTA=0.8300
+
+[cb-tta] seed 7 (2/5) ...
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 18234.61it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.dense.weight    | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  sd=7 ep01 loss=0.7735 val_tta=0.7208 best=0.7208 (24s)
+  sd=7 ep02 loss=0.7685 val_tta=0.7729 best=0.7729 (25s)
+  sd=7 ep03 loss=0.7613 val_tta=0.8271 best=0.8271 (25s)
+  sd=7 ep04 loss=0.7511 val_tta=0.7937 best=0.8271 (17s)
+  sd=7 ep06 loss=0.7109 val_tta=0.8521 best=0.8521 (26s)
+  sd=7 ep08 loss=0.6329 val_tta=0.8812 best=0.8812 (24s)
+  sd=7 ep10 loss=0.5212 val_tta=0.8312 best=0.8812 (16s)
+  sd=7 ep12 loss=0.4401 val_tta=0.8188 best=0.8812 (17s)
+  sd=7 ep14 loss=0.4155 val_tta=0.8229 best=0.8812 (16s)
+  sd=7 ep16 loss=0.3880 val_tta=0.8313 best=0.8812 (16s)
+  sd=7 ep18 loss=0.3663 val_tta=0.8354 best=0.8812 (16s)
+  sd=7 early-stop ep18
+  --> sd=7 val_TTA=0.8812 test_TTA=0.8828
+
+[cb-tta] seed 13 (3/5) ...
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 20657.76it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.dense.weight    | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  sd=13 ep01 loss=0.7778 val_tta=0.6333 best=0.6333 (24s)
+  sd=13 ep02 loss=0.7697 val_tta=0.7750 best=0.7750 (25s)
+  sd=13 ep03 loss=0.7640 val_tta=0.7958 best=0.7958 (24s)
+  sd=13 ep04 loss=0.7559 val_tta=0.8063 best=0.8063 (24s)
+  sd=13 ep06 loss=0.7247 val_tta=0.8479 best=0.8479 (25s)
+  sd=13 ep08 loss=0.6567 val_tta=0.8479 best=0.8479 (17s)
+  sd=13 ep10 loss=0.5434 val_tta=0.8313 best=0.8479 (17s)
+  sd=13 ep12 loss=0.4774 val_tta=0.8188 best=0.8479 (17s)
+  sd=13 ep14 loss=0.4214 val_tta=0.8521 best=0.8521 (24s)
+  sd=13 ep16 loss=0.4064 val_tta=0.8646 best=0.8646 (24s)
+  sd=13 ep18 loss=0.3712 val_tta=0.8792 best=0.8792 (24s)
+  sd=13 ep20 loss=0.3503 val_tta=0.8604 best=0.8792 (16s)
+  sd=13 ep22 loss=0.3415 val_tta=0.8604 best=0.8792 (17s)
+  sd=13 ep24 loss=0.3216 val_tta=0.8563 best=0.8792 (17s)
+  --> sd=13 val_TTA=0.8792 test_TTA=0.8889
+
+[cb-tta] seed 21 (4/5) ...
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Exception in thread Thread-auto_conversion:
+Traceback (most recent call last):
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 761, in hf_raise_for_status
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 117, in auto_conversion
+    raise e
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 96, in auto_conversion
+    sha = get_conversion_pr_reference(api, pretrained_model_name_or_path, **cached_file_kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 60, in get_conversion_pr_reference
+    private = api.model_info(model_id).private
+              ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\hf_api.py", line 3209, in model_info
+    hf_raise_for_status(r)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 868, in hf_raise_for_status
+    raise _format(HfHubHTTPError, message, response) from e
+huggingface_hub.errors.HfHubHTTPError: (Amz CF ID: 3ye26kFy9kSxLeY5TMUUJ6cu1sF0P-3ssR4FsDjskF8AklDFFtM_vQ==)
+
+429 Too Many Requests for url: https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 19665.44it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.dense.weight    | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  sd=21 ep01 loss=0.7775 val_tta=0.6438 best=0.6438 (24s)
+  sd=21 ep02 loss=0.7706 val_tta=0.7917 best=0.7917 (25s)
+  sd=21 ep03 loss=0.7620 val_tta=0.8229 best=0.8229 (25s)
+  sd=21 ep04 loss=0.7567 val_tta=0.8333 best=0.8333 (25s)
+  sd=21 ep06 loss=0.7236 val_tta=0.8396 best=0.8396 (24s)
+  sd=21 ep08 loss=0.6502 val_tta=0.8458 best=0.8458 (24s)
+  sd=21 ep10 loss=0.5236 val_tta=0.8312 best=0.8458 (16s)
+  sd=21 ep12 loss=0.4667 val_tta=0.8333 best=0.8458 (16s)
+  sd=21 ep14 loss=0.3994 val_tta=0.8292 best=0.8458 (16s)
+  sd=21 ep16 loss=0.3792 val_tta=0.8479 best=0.8479 (24s)
+  sd=21 ep18 loss=0.3526 val_tta=0.8313 best=0.8479 (16s)
+  sd=21 ep20 loss=0.3146 val_tta=0.8479 best=0.8479 (16s)
+  sd=21 ep22 loss=0.3299 val_tta=0.8354 best=0.8479 (16s)
+  sd=21 ep24 loss=0.3215 val_tta=0.8354 best=0.8479 (16s)
+  --> sd=21 val_TTA=0.8479 test_TTA=0.8941
+
+[cb-tta] seed 100 (5/5) ...
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Exception in thread Thread-auto_conversion:
+Traceback (most recent call last):
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 761, in hf_raise_for_status
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 117, in auto_conversion
+    raise e
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 96, in auto_conversion
+    sha = get_conversion_pr_reference(api, pretrained_model_name_or_path, **cached_file_kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 60, in get_conversion_pr_reference
+    private = api.model_info(model_id).private
+              ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\hf_api.py", line 3209, in model_info
+    hf_raise_for_status(r)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 868, in hf_raise_for_status
+    raise _format(HfHubHTTPError, message, response) from e
+huggingface_hub.errors.HfHubHTTPError: (Amz CF ID: aUanVJ3Nt116ydAsBWgmd1Ffmxp90_dCp536tjgwBQofkTGDBXWWNw==)
+
+429 Too Many Requests for url: https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 13790.21it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.dense.weight    | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  sd=100 ep01 loss=0.7717 val_tta=0.7271 best=0.7271 (24s)
+  sd=100 ep02 loss=0.7662 val_tta=0.8396 best=0.8396 (23s)
+  sd=100 ep03 loss=0.7576 val_tta=0.8438 best=0.8438 (24s)
+  sd=100 ep04 loss=0.7463 val_tta=0.8542 best=0.8542 (24s)
+  sd=100 ep06 loss=0.7068 val_tta=0.8813 best=0.8813 (25s)
+  sd=100 ep08 loss=0.6206 val_tta=0.8604 best=0.8813 (16s)
+  sd=100 ep10 loss=0.5191 val_tta=0.8583 best=0.8813 (16s)
+  sd=100 ep12 loss=0.4388 val_tta=0.8500 best=0.8813 (16s)
+  sd=100 ep14 loss=0.4038 val_tta=0.8708 best=0.8813 (16s)
+  sd=100 ep16 loss=0.3759 val_tta=0.8833 best=0.8833 (24s)
+  sd=100 ep18 loss=0.3619 val_tta=0.8687 best=0.8833 (16s)
+  sd=100 ep20 loss=0.3438 val_tta=0.8833 best=0.8833 (17s)
+  sd=100 ep22 loss=0.3145 val_tta=0.8833 best=0.8833 (16s)
+  sd=100 ep24 loss=0.3081 val_tta=0.8729 best=0.8833 (16s)
+  --> sd=100 val_TTA=0.8833 test_TTA=0.8922
+
+[cb-tta] MEAN-of-5 (TTA=10) test AUROC = 0.8936
+[cb-tta] wrote tdc_chemberta_tta_*.npz

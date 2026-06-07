@@ -1,0 +1,99 @@
+[mf-finetune] device=cpu  seeds=[42, 7, 13]  epochs=15  keep_top=3
+[data] raw=881  cleaned/uniq=869  graphable=869
+[data] atom_feat_dim=54  bond_feat_dim=7  global_desc_dim=14
+[mf-finetune] split tr=521 va=173 te=175
+
+[mf-finetune] === seed 42 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/207 [00:00<?, ?it/s]Loading weights: 100%|##########| 207/207 [00:00<00:00, 5247.35it/s]
+[transformers] [1mMolformerModel LOAD REPORT[0m from: ibm/MoLFormer-XL-both-10pct
+Key                                | Status     |  | 
+-----------------------------------+------------+--+-
+lm_head.decoder.weight             | UNEXPECTED |  | 
+lm_head.transform.dense.bias       | UNEXPECTED |  | 
+lm_head.transform.LayerNorm.weight | UNEXPECTED |  | 
+lm_head.transform.dense.weight     | UNEXPECTED |  | 
+lm_head.transform.LayerNorm.bias   | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+  encoder: 9/12 layers frozen  trainable=10.6M / total=44.4M
+[transformers] `use_return_dict` is deprecated! Use `return_dict` instead!
+  seed=42 ep01 loss=0.5543 val_auc=0.6131 best=0.6131 (151s)
+  seed=42 ep02 loss=0.5413 val_auc=0.6150 best=0.6150 (153s)
+  seed=42 ep03 loss=0.5450 val_auc=0.6294 best=0.6294 (155s)
+  seed=42 ep04 loss=0.5216 val_auc=0.6271 best=0.6294 (151s)
+  seed=42 ep05 loss=0.5268 val_auc=0.6328 best=0.6328 (137s)
+  seed=42 ep06 loss=0.5261 val_auc=0.6401 best=0.6401 (136s)
+  seed=42 ep07 loss=0.5377 val_auc=0.6392 best=0.6401 (136s)
+  seed=42 ep08 loss=0.5232 val_auc=0.6469 best=0.6469 (136s)
+  seed=42 ep09 loss=0.5276 val_auc=0.6465 best=0.6469 (170s)
+  seed=42 ep10 loss=0.5256 val_auc=0.6418 best=0.6469 (176s)
+  seed=42 ep11 loss=0.5281 val_auc=0.6473 best=0.6473 (175s)
+  seed=42 ep12 loss=0.5142 val_auc=0.6499 best=0.6499 (175s)
+  seed=42 ep13 loss=0.5201 val_auc=0.6499 best=0.6499 (171s)
+  seed=42 ep14 loss=0.5160 val_auc=0.6457 best=0.6499 (184s)
+  seed=42 ep15 loss=0.5140 val_auc=0.6456 best=0.6499 (195s)
+[mf-finetune] seed=42 best_val_auc=0.6499  test_auc=0.6007  elapsed=2463s
+
+[mf-finetune] === seed 7 ===
+Loading weights:   0%|          | 0/207 [00:00<?, ?it/s]Loading weights: 100%|##########| 207/207 [00:00<00:00, 4869.90it/s]
+[transformers] [1mMolformerModel LOAD REPORT[0m from: ibm/MoLFormer-XL-both-10pct
+Key                                | Status     |  | 
+-----------------------------------+------------+--+-
+lm_head.decoder.weight             | UNEXPECTED |  | 
+lm_head.transform.dense.bias       | UNEXPECTED |  | 
+lm_head.transform.LayerNorm.weight | UNEXPECTED |  | 
+lm_head.transform.dense.weight     | UNEXPECTED |  | 
+lm_head.transform.LayerNorm.bias   | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+  encoder: 9/12 layers frozen  trainable=10.6M / total=44.4M
+  seed=7 ep01 loss=0.5528 val_auc=0.5958 best=0.5958 (195s)
+  seed=7 ep02 loss=0.5427 val_auc=0.6046 best=0.6046 (197s)
+  seed=7 ep03 loss=0.5399 val_auc=0.6126 best=0.6126 (194s)
+  seed=7 ep04 loss=0.5453 val_auc=0.6291 best=0.6291 (196s)
+  seed=7 ep05 loss=0.5378 val_auc=0.6390 best=0.6390 (172s)
+  seed=7 ep06 loss=0.5214 val_auc=0.6351 best=0.6390 (170s)
+  seed=7 ep07 loss=0.5345 val_auc=0.6453 best=0.6453 (171s)
+  seed=7 ep08 loss=0.5246 val_auc=0.6517 best=0.6517 (173s)
+  seed=7 ep09 loss=0.5194 val_auc=0.6511 best=0.6517 (173s)
+  seed=7 ep10 loss=0.5272 val_auc=0.6567 best=0.6567 (186s)
+  seed=7 ep11 loss=0.5259 val_auc=0.6560 best=0.6567 (198s)
+  seed=7 ep12 loss=0.5172 val_auc=0.6582 best=0.6582 (198s)
+  seed=7 ep13 loss=0.5103 val_auc=0.6466 best=0.6582 (198s)
+  seed=7 ep14 loss=0.5286 val_auc=0.6519 best=0.6582 (199s)
+  seed=7 ep15 loss=0.5304 val_auc=0.6521 best=0.6582 (190s)
+[mf-finetune] seed=7 best_val_auc=0.6582  test_auc=0.6164  elapsed=2869s
+
+[mf-finetune] === seed 13 ===
+Loading weights:   0%|          | 0/207 [00:00<?, ?it/s]Loading weights: 100%|##########| 207/207 [00:00<00:00, 5534.83it/s]
+[transformers] [1mMolformerModel LOAD REPORT[0m from: ibm/MoLFormer-XL-both-10pct
+Key                                | Status     |  | 
+-----------------------------------+------------+--+-
+lm_head.decoder.weight             | UNEXPECTED |  | 
+lm_head.transform.dense.bias       | UNEXPECTED |  | 
+lm_head.transform.LayerNorm.weight | UNEXPECTED |  | 
+lm_head.transform.dense.weight     | UNEXPECTED |  | 
+lm_head.transform.LayerNorm.bias   | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+  encoder: 9/12 layers frozen  trainable=10.6M / total=44.4M
+  seed=13 ep01 loss=0.5565 val_auc=0.6238 best=0.6238 (171s)
+  seed=13 ep02 loss=0.5422 val_auc=0.6368 best=0.6368 (171s)
+  seed=13 ep03 loss=0.5332 val_auc=0.6375 best=0.6375 (171s)
+  seed=13 ep04 loss=0.5313 val_auc=0.6319 best=0.6375 (175s)
+  seed=13 ep05 loss=0.5323 val_auc=0.6439 best=0.6439 (174s)
+  seed=13 ep06 loss=0.5344 val_auc=0.6433 best=0.6439 (174s)
+  seed=13 ep07 loss=0.5252 val_auc=0.6506 best=0.6506 (173s)
+  seed=13 ep08 loss=0.5289 val_auc=0.6501 best=0.6506 (175s)
+  seed=13 ep09 loss=0.5157 val_auc=0.6494 best=0.6506 (174s)
+  seed=13 ep10 loss=0.5365 val_auc=0.6496 best=0.6506 (176s)
+  seed=13 ep11 loss=0.5148 val_auc=0.6434 best=0.6506 (175s)
+  seed=13 early-stop at ep11
+[mf-finetune] seed=13 best_val_auc=0.6506  test_auc=0.6255  elapsed=1968s
+
+[mf-finetune] mean-of-3 test:  AUROC=0.6182  ACC=0.6000  F1=0.6847  MCC=0.1393
+[mf-finetune] total elapsed 121.7 min

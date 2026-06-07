@@ -1,0 +1,109 @@
+  + GCN                        val=(47,)  test=(95,)
+  + GAT                        val=(47,)  test=(95,)
+  + GraphSAGE                  val=(47,)  test=(95,)
+  + GIN                        val=(47,)  test=(95,)
+  + MPNN                       val=(47,)  test=(95,)
+  + molformer                  val=(47,)  test=(95,)
+  + ChemBERTa_s42              val=(47,)  test=(95,)
+  + ChemBERTa_s7               val=(47,)  test=(95,)
+  + ChemBERTa_s13              val=(47,)  test=(95,)
+  + hybrid                     val=(47,)  test=(95,)
+  + specialists_soft           val=(47,)  test=(95,)
+  + AttentiveFP_s42            val=(47,)  test=(95,)
+  + AttentiveFP_s7             val=(47,)  test=(95,)
+  + AttentiveFP_s13            val=(47,)  test=(95,)
+  + ChemBERTaTTA               val=(47,)  test=(95,)
+  + CBTTA_s42                  val=(47,)  test=(95,)
+  + CBTTA_s7                   val=(47,)  test=(95,)
+  + CBTTA_s13                  val=(47,)  test=(95,)
+  + CBTTA_s21                  val=(47,)  test=(95,)
+  + CBTTA_s100                 val=(47,)  test=(95,)
+
+[stack_v2] base columns (20): ['GCN', 'GAT', 'GraphSAGE', 'GIN', 'MPNN', 'molformer', 'ChemBERTa_s42', 'ChemBERTa_s7', 'ChemBERTa_s13', 'hybrid', 'specialists_soft', 'AttentiveFP_s42', 'AttentiveFP_s7', 'AttentiveFP_s13', 'ChemBERTaTTA', 'CBTTA_s42', 'CBTTA_s7', 'CBTTA_s13', 'CBTTA_s21', 'CBTTA_s100']
+
+[individual base models]
+  GCN                        AUROC=0.8531  ACC=0.7263  F1=0.7937  MCC=0.3993
+  GAT                        AUROC=0.8540  ACC=0.7789  F1=0.8444  MCC=0.5316
+  GraphSAGE                  AUROC=0.8352  ACC=0.7368  F1=0.8062  MCC=0.4201
+  GIN                        AUROC=0.8084  ACC=0.7684  F1=0.8406  MCC=0.5182
+  MPNN                       AUROC=0.8291  ACC=0.7684  F1=0.8103  MCC=0.5138
+  molformer                  AUROC=0.8084  ACC=0.7368  F1=0.8120  MCC=0.4205
+  ChemBERTa_s42              AUROC=0.7966  ACC=0.7158  F1=0.7429  MCC=0.4529
+  ChemBERTa_s7               AUROC=0.8484  ACC=0.7474  F1=0.7818  MCC=0.4929
+  ChemBERTa_s13              AUROC=0.8559  ACC=0.7684  F1=0.8136  MCC=0.5080
+  hybrid                     AUROC=0.8277  ACC=0.7579  F1=0.8189  MCC=0.4699
+  specialists_soft           AUROC=0.8230  ACC=0.7684  F1=0.8333  MCC=0.4970
+  AttentiveFP_s42            AUROC=0.7891  ACC=0.7684  F1=0.8358  MCC=0.5014
+  AttentiveFP_s7             AUROC=0.8211  ACC=0.7684  F1=0.8281  MCC=0.4938
+  AttentiveFP_s13            AUROC=0.8479  ACC=0.7789  F1=0.8421  MCC=0.5251
+  ChemBERTaTTA               AUROC=0.8936  ACC=0.8000  F1=0.8348  MCC=0.5832
+  CBTTA_s42                  AUROC=0.8300  ACC=0.6737  F1=0.6593  MCC=0.4649
+  CBTTA_s7                   AUROC=0.8828  ACC=0.7789  F1=0.8235  MCC=0.5279
+  CBTTA_s13                  AUROC=0.8889  ACC=0.8000  F1=0.8376  MCC=0.5775
+  CBTTA_s21                  AUROC=0.8941  ACC=0.8105  F1=0.8364  MCC=0.6234
+  CBTTA_s100                 AUROC=0.8922  ACC=0.8316  F1=0.8621  MCC=0.6467
+
+[full-column ensembles]
+
+[weighted blends with the new heads]
+
+[meta-learners over all base columns]
+
+[TOP 15 by AUROC]
+variant       method tuned_for  threshold    AUROC      ACC       F1      MCC
+ single    CBTTA_s21       MCC      0.620 0.894068 0.810526 0.836364 0.623404
+ single ChemBERTaTTA       MCC      0.550 0.893597 0.800000 0.834783 0.583158
+ single   CBTTA_s100       MCC      0.585 0.892185 0.831579 0.862069 0.646651
+ single    CBTTA_s13       MCC      0.565 0.888889 0.800000 0.837607 0.577525
+   full       median       MCC      0.535 0.887006 0.789474 0.830508 0.552731
+   full       median        F1      0.535 0.887006 0.789474 0.830508 0.552731
+   full       median       ACC      0.535 0.887006 0.789474 0.830508 0.552731
+   full         mean        F1      0.495 0.886064 0.831579 0.873016 0.637226
+   full         mean       ACC      0.495 0.886064 0.831579 0.873016 0.637226
+   full         mean       MCC      0.570 0.886064 0.789474 0.830508 0.552731
+   full    geom-mean       MCC      0.495 0.885593 0.810526 0.852459 0.591022
+   full    geom-mean       ACC      0.450 0.885593 0.842105 0.880000 0.660131
+   full    geom-mean        F1      0.450 0.885593 0.842105 0.880000 0.660131
+   full     rank-avg       ACC      0.335 0.884416 0.821053 0.866142 0.614253
+   full     rank-avg       MCC      0.395 0.884416 0.800000 0.840336 0.572926
+
+[TOP 10 by ACC]
+variant            method tuned_for  threshold    AUROC      ACC       F1      MCC
+   full         geom-mean       ACC      0.450 0.885593 0.842105 0.880000 0.660131
+  blend         afp-heavy       MCC      0.565 0.872881 0.842105 0.873950 0.662889
+   full         geom-mean        F1      0.450 0.885593 0.842105 0.880000 0.660131
+  blend         balanced7       MCC      0.465 0.871469 0.842105 0.876033 0.660547
+   full              mean       ACC      0.495 0.886064 0.831579 0.873016 0.637226
+ single        CBTTA_s100       MCC      0.585 0.892185 0.831579 0.862069 0.646651
+  blend               eq6       MCC      0.505 0.875235 0.831579 0.868852 0.636932
+   full              mean        F1      0.495 0.886064 0.831579 0.873016 0.637226
+  blend transformer-heavy       MCC      0.570 0.876177 0.821053 0.854701 0.622022
+meta-LR             C=5.0        F1      0.405 0.876648 0.821053 0.859504 0.614976
+
+[TOP 10 by MCC]
+variant            method tuned_for  threshold    AUROC      ACC       F1      MCC
+  blend         afp-heavy       MCC      0.565 0.872881 0.842105 0.873950 0.662889
+  blend         balanced7       MCC      0.465 0.871469 0.842105 0.876033 0.660547
+   full         geom-mean        F1      0.450 0.885593 0.842105 0.880000 0.660131
+   full         geom-mean       ACC      0.450 0.885593 0.842105 0.880000 0.660131
+ single        CBTTA_s100       MCC      0.585 0.892185 0.831579 0.862069 0.646651
+   full              mean        F1      0.495 0.886064 0.831579 0.873016 0.637226
+   full              mean       ACC      0.495 0.886064 0.831579 0.873016 0.637226
+  blend               eq6       MCC      0.505 0.875235 0.831579 0.868852 0.636932
+ single         CBTTA_s21       MCC      0.620 0.894068 0.810526 0.836364 0.623404
+  blend transformer-heavy       MCC      0.570 0.876177 0.821053 0.854701 0.622022
+
+[TOP 10 by F1]
+variant    method tuned_for  threshold    AUROC      ACC       F1      MCC
+   full geom-mean        F1      0.450 0.885593 0.842105 0.880000 0.660131
+   full geom-mean       ACC      0.450 0.885593 0.842105 0.880000 0.660131
+  blend balanced7       MCC      0.465 0.871469 0.842105 0.876033 0.660547
+  blend afp-heavy       MCC      0.565 0.872881 0.842105 0.873950 0.662889
+   full      mean       ACC      0.495 0.886064 0.831579 0.873016 0.637226
+   full      mean        F1      0.495 0.886064 0.831579 0.873016 0.637226
+  blend       eq6       MCC      0.505 0.875235 0.831579 0.868852 0.636932
+meta-LR     C=0.1       ACC      0.440 0.881356 0.821053 0.866142 0.614253
+meta-LR     C=0.1        F1      0.440 0.881356 0.821053 0.866142 0.614253
+   full  rank-avg       ACC      0.335 0.884416 0.821053 0.866142 0.614253
+
+[HEADLINE] best AUROC=0.8941  ACC=0.8105  F1=0.8364  MCC=0.6234  (single/CBTTA_s21, tuned-for=MCC)

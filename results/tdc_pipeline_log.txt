@@ -1,0 +1,220 @@
+[tdc] device=cpu
+[tdc] after standardize+dedup: 472 compounds  (pos_rate=0.500)
+[tdc] graphs built: 472
+[tdc] scaffold split 70/10/20  tr=330 va=47 te=95
+   pos_rate  tr=0.439  va=0.681  te=0.621
+
+[tdc] training 5 GNNs x 3 seeds each ...
+  GCN sd=0 val_auc=0.8375 test_auc=0.8531  (4s)
+  GCN sd=1 val_auc=0.8521 test_auc=0.8065  (10s)
+  GCN sd=2 val_auc=0.8292 test_auc=0.8395  (4s)
+  --> GCN BAGGED test AUROC=0.8531
+  GAT sd=0 val_auc=0.8312 test_auc=0.8696  (15s)
+  GAT sd=1 val_auc=0.8687 test_auc=0.8291  (15s)
+  GAT sd=2 val_auc=0.8438 test_auc=0.8437  (14s)
+  --> GAT BAGGED test AUROC=0.8540
+  GraphSAGE sd=0 val_auc=0.8604 test_auc=0.8319  (5s)
+  GraphSAGE sd=1 val_auc=0.8417 test_auc=0.8244  (4s)
+  GraphSAGE sd=2 val_auc=0.8479 test_auc=0.8159  (4s)
+  --> GraphSAGE BAGGED test AUROC=0.8352
+  GIN sd=0 val_auc=0.8667 test_auc=0.8291  (4s)
+  GIN sd=1 val_auc=0.8812 test_auc=0.7288  (4s)
+  GIN sd=2 val_auc=0.8771 test_auc=0.8013  (5s)
+  --> GIN BAGGED test AUROC=0.8084
+  MPNN sd=0 val_auc=0.8667 test_auc=0.7933  (78s)
+  MPNN sd=1 val_auc=0.8771 test_auc=0.8253  (59s)
+  MPNN sd=2 val_auc=0.8583 test_auc=0.8267  (100s)
+  --> MPNN BAGGED test AUROC=0.8291
+[tdc] GNN total: 5.4 min
+
+[tdc] extracting MolFormer-XL embeddings for TDC molecules ...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/207 [00:00<?, ?it/s]Loading weights: 100%|##########| 207/207 [00:00<00:00, 4164.65it/s]
+[transformers] [1mMolformerModel LOAD REPORT[0m from: ibm/MoLFormer-XL-both-10pct
+Key                                | Status     |  | 
+-----------------------------------+------------+--+-
+lm_head.transform.dense.weight     | UNEXPECTED |  | 
+lm_head.decoder.weight             | UNEXPECTED |  | 
+lm_head.transform.LayerNorm.bias   | UNEXPECTED |  | 
+lm_head.transform.LayerNorm.weight | UNEXPECTED |  | 
+lm_head.transform.dense.bias       | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[transformers] `use_return_dict` is deprecated! Use `return_dict` instead!
+  MolFormer embeddings shape=(472, 768), took 60.2s
+  MolFormer test AUROC=0.8084
+
+[tdc] Hybrid (GNN-emb || desc || Morgan-FP) -> XGBoost ...
+  Hybrid test AUROC=0.8277
+
+[tdc] ChemBERTa-77M fine-tune (3 seeds, 25 epochs each) ...
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 20548.91it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+regression.dense.weight    | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+norm_std                   | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+   sd=42 ep05 loss=0.7346 val_auc=0.8771  best=0.8771 (29s)
+   sd=42 ep10 loss=0.4687 val_auc=0.8708  best=0.8771 (29s)
+   sd=42 early-stop ep10
+  CB seed=42 val=0.8771 test=0.7966
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 18914.16it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+regression.dense.weight    | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+norm_std                   | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+   sd=7 ep05 loss=0.7338 val_auc=0.8229  best=0.8229 (28s)
+   sd=7 ep10 loss=0.4478 val_auc=0.8208  best=0.8313 (23s)
+   sd=7 ep12 loss=0.3766 val_auc=0.8187  best=0.8313 (20s)
+   sd=7 early-stop ep12
+  CB seed=7 val=0.8313 test=0.8484
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Exception in thread Thread-auto_conversion:
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 16461.65it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+regression.dense.weight    | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+norm_std                   | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+Traceback (most recent call last):
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 761, in hf_raise_for_status
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 117, in auto_conversion
+    raise e
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 96, in auto_conversion
+    sha = get_conversion_pr_reference(api, pretrained_model_name_or_path, **cached_file_kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 60, in get_conversion_pr_reference
+    private = api.model_info(model_id).private
+              ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\hf_api.py", line 3209, in model_info
+    hf_raise_for_status(r)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 868, in hf_raise_for_status
+    raise _format(HfHubHTTPError, message, response) from e
+huggingface_hub.errors.HfHubHTTPError: (Amz CF ID: wRPGov6YxEaeY46U8Kg5xzCGHuXj5P2kFZjbq0qo97oIk5azC6Lohw==)
+
+429 Too Many Requests for url: https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR.
+   sd=13 ep05 loss=0.7357 val_auc=0.8083  best=0.8083 (20s)
+   sd=13 ep10 loss=0.4692 val_auc=0.8313  best=0.8313 (26s)
+   sd=13 ep15 loss=0.2986 val_auc=0.8500  best=0.8500 (20s)
+   sd=13 ep20 loss=0.1857 val_auc=0.8333  best=0.8500 (25s)
+   sd=13 early-stop ep20
+  CB seed=13 val=0.8500 test=0.8559
+  ChemBERTa MEAN-of-3 test AUROC=0.8531
+
+[tdc] Specialists (K=2 on MolFormer-emb) ...
+  Specialists test AUROC=0.8230
+
+[tdc] FINAL STACK ====================
+
+[individual base models]
+  GCN                 AUROC=0.8531  ACC=0.7263  F1=0.7937  MCC=0.3993
+  GAT                 AUROC=0.8540  ACC=0.7789  F1=0.8444  MCC=0.5316
+  GraphSAGE           AUROC=0.8352  ACC=0.7368  F1=0.8062  MCC=0.4201
+  GIN                 AUROC=0.8084  ACC=0.7684  F1=0.8406  MCC=0.5182
+  MPNN                AUROC=0.8291  ACC=0.7684  F1=0.8103  MCC=0.5138
+  molformer           AUROC=0.8084  ACC=0.7368  F1=0.8120  MCC=0.4205
+  chemberta           AUROC=0.8531  ACC=0.7579  F1=0.7965  MCC=0.5022
+  hybrid              AUROC=0.8277  ACC=0.7579  F1=0.8189  MCC=0.4699
+  specialists         AUROC=0.8230  ACC=0.7684  F1=0.8333  MCC=0.4970
+
+[TOP 15 by AUROC]
+variant              method tuned_for  threshold    AUROC      ACC       F1      MCC
+   full            rank-avg       MCC      0.375 0.879237 0.778947 0.823529 0.527944
+   full            rank-avg        F1      0.375 0.879237 0.778947 0.823529 0.527944
+   full            rank-avg       ACC      0.375 0.879237 0.778947 0.823529 0.527944
+   full           geom-mean       MCC      0.475 0.875235 0.800000 0.837607 0.577525
+   full           geom-mean       ACC      0.410 0.875235 0.821053 0.864000 0.613014
+   full           geom-mean        F1      0.410 0.875235 0.821053 0.864000 0.613014
+   full                mean       ACC      0.540 0.870527 0.810526 0.847458 0.597458
+   full                mean        F1      0.540 0.870527 0.810526 0.847458 0.597458
+   full                mean       MCC      0.540 0.870527 0.810526 0.847458 0.597458
+  5-way     weighted-equal5       ACC      0.460 0.866290 0.810526 0.852459 0.591022
+  5-way     weighted-equal5        F1      0.460 0.866290 0.810526 0.852459 0.591022
+  5-way     weighted-equal5       MCC      0.460 0.866290 0.810526 0.852459 0.591022
+  5-way weighted-gnn-light5       MCC      0.465 0.864878 0.800000 0.842975 0.569404
+  5-way weighted-gnn-light5       ACC      0.340 0.864878 0.778947 0.846715 0.541049
+  5-way weighted-gnn-light5        F1      0.340 0.864878 0.778947 0.846715 0.541049
+
+[TOP 10 by ACC]
+variant              method tuned_for  threshold    AUROC      ACC       F1      MCC
+   full           geom-mean        F1      0.410 0.875235 0.821053 0.864000 0.613014
+   full           geom-mean       ACC      0.410 0.875235 0.821053 0.864000 0.613014
+   full                mean       MCC      0.540 0.870527 0.810526 0.847458 0.597458
+   full                mean       ACC      0.540 0.870527 0.810526 0.847458 0.597458
+   full                mean        F1      0.540 0.870527 0.810526 0.847458 0.597458
+  5-way     weighted-equal5       ACC      0.460 0.866290 0.810526 0.852459 0.591022
+  5-way     weighted-equal5        F1      0.460 0.866290 0.810526 0.852459 0.591022
+  5-way     weighted-equal5       MCC      0.460 0.866290 0.810526 0.852459 0.591022
+  4-way     weighted-equal4       MCC      0.395 0.861582 0.800000 0.854962 0.571594
+  5-way weighted-gnn-light5       MCC      0.465 0.864878 0.800000 0.842975 0.569404
+
+[TOP 10 by MCC]
+variant                    method tuned_for  threshold    AUROC      ACC       F1      MCC
+   full                 geom-mean        F1      0.410 0.875235 0.821053 0.864000 0.613014
+   full                 geom-mean       ACC      0.410 0.875235 0.821053 0.864000 0.613014
+   full                      mean       MCC      0.540 0.870527 0.810526 0.847458 0.597458
+   full                      mean       ACC      0.540 0.870527 0.810526 0.847458 0.597458
+   full                      mean        F1      0.540 0.870527 0.810526 0.847458 0.597458
+  5-way           weighted-equal5       ACC      0.460 0.866290 0.810526 0.852459 0.591022
+  5-way           weighted-equal5        F1      0.460 0.866290 0.810526 0.852459 0.591022
+  5-way           weighted-equal5       MCC      0.460 0.866290 0.810526 0.852459 0.591022
+  5-way weighted-no-gnn5-sp-heavy       MCC      0.490 0.857345 0.800000 0.837607 0.577525
+   full                 geom-mean       MCC      0.475 0.875235 0.800000 0.837607 0.577525

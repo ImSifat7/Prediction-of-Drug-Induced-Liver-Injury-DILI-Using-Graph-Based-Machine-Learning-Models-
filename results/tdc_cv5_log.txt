@@ -1,0 +1,626 @@
+[cv5] device=cpu
+[cv5] loaded 472 graphs
+[cv5] MolFormer embeddings shape=(472, 768)
+[cv5] fold sizes: [95, 95, 94, 94, 94]  sum=472 (vs n=472)
+
+========== FOLD 1/5  tr/va/te=282/95/95 ==========
+  [F1] GCN sd=0 val_auc=0.8945 test_auc=0.8250 (6s)
+  [F1] GCN sd=1 val_auc=0.8908 test_auc=0.8368 (6s)
+  [F1] --> GCN bagged AUROC=0.8343
+  [F1] GAT sd=0 val_auc=0.8823 test_auc=0.8118 (25s)
+  [F1] GAT sd=1 val_auc=0.8159 test_auc=0.7713 (5s)
+  [F1] --> GAT bagged AUROC=0.8123
+  [F1] GraphSAGE sd=0 val_auc=0.8917 test_auc=0.8201 (4s)
+  [F1] GraphSAGE sd=1 val_auc=0.8969 test_auc=0.7991 (7s)
+  [F1] --> GraphSAGE bagged AUROC=0.8089
+  [F1] GIN sd=0 val_auc=0.8357 test_auc=0.8226 (3s)
+  [F1] GIN sd=1 val_auc=0.8282 test_auc=0.8113 (3s)
+  [F1] --> GIN bagged AUROC=0.8192
+  [F1] MPNN sd=0 val_auc=0.8470 test_auc=0.7835 (85s)
+  [F1] MPNN sd=1 val_auc=0.8423 test_auc=0.7928 (82s)
+  [F1] --> MPNN bagged AUROC=0.7805
+  [F1] MolFormer AUROC=0.6769
+  [F1] AttentiveFP sd=0 val=0.8536 test=0.8231
+  [F1] AttentiveFP sd=1 val=0.8649 test=0.8260
+  [F1] AttentiveFP bagged AUROC=0.8260
+  [F1] Hybrid AUROC=0.8123
+  [F1] Specialists AUROC=0.6740
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Exception in thread Thread-auto_conversion:
+Traceback (most recent call last):
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 761, in hf_raise_for_status
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 117, in auto_conversion
+    raise e
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 96, in auto_conversion
+    sha = get_conversion_pr_reference(api, pretrained_model_name_or_path, **cached_file_kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 60, in get_conversion_pr_reference
+    private = api.model_info(model_id).private
+              ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\hf_api.py", line 3209, in model_info
+    hf_raise_for_status(r)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 868, in hf_raise_for_status
+    raise _format(HfHubHTTPError, message, response) from e
+huggingface_hub.errors.HfHubHTTPError: (Amz CF ID: YGX2YECSySVITsn2KsrxAOnPCabKtghE1-zZjGx0M2w9oSYIRoAY0w==)
+
+429 Too Many Requests for url: https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 30539.65it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [F1] CB sd=0 val=0.7858 test=0.8011 (276s)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 20370.03it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [F1] CB sd=1 val=0.8037 test=0.8157 (279s)
+  [F1] ChemBERTa AUROC=0.8099
+  [F1] mean        AUROC=0.8148  ACC=0.7789  F1=0.7200  MCC=0.5525
+  [F1] geom-mean   AUROC=0.8152  ACC=0.7789  F1=0.7200  MCC=0.5525
+  [F1] rank-avg    AUROC=0.8167  ACC=0.7895  F1=0.7143  MCC=0.5507
+  [F1] meta-XGB    AUROC=0.8123  ACC=0.7579  F1=0.6849  MCC=0.4973
+
+[cv5] fold 1 done; saved partial results to tdc_cv5_partial.json
+
+
+========== FOLD 2/5  tr/va/te=283/94/95 ==========
+  [F2] GCN sd=0 val_auc=0.8947 test_auc=0.7994 (2s)
+  [F2] GCN sd=1 val_auc=0.8942 test_auc=0.8164 (2s)
+  [F2] --> GCN bagged AUROC=0.8150
+  [F2] GAT sd=0 val_auc=0.8967 test_auc=0.8032 (5s)
+  [F2] GAT sd=1 val_auc=0.8891 test_auc=0.7961 (5s)
+  [F2] --> GAT bagged AUROC=0.8070
+  [F2] GraphSAGE sd=0 val_auc=0.8654 test_auc=0.7971 (2s)
+  [F2] GraphSAGE sd=1 val_auc=0.8609 test_auc=0.8121 (2s)
+  [F2] --> GraphSAGE bagged AUROC=0.8093
+  [F2] GIN sd=0 val_auc=0.8523 test_auc=0.8126 (2s)
+  [F2] GIN sd=1 val_auc=0.8851 test_auc=0.8390 (3s)
+  [F2] --> GIN bagged AUROC=0.8465
+  [F2] MPNN sd=0 val_auc=0.8871 test_auc=0.8159 (20s)
+  [F2] MPNN sd=1 val_auc=0.8977 test_auc=0.8032 (32s)
+  [F2] --> MPNN bagged AUROC=0.8112
+  [F2] MolFormer AUROC=0.8545
+  [F2] AttentiveFP sd=0 val=0.8936 test=0.8531
+  [F2] AttentiveFP sd=1 val=0.9284 test=0.8315
+  [F2] AttentiveFP bagged AUROC=0.8522
+  [F2] Hybrid AUROC=0.8352
+  [F2] Specialists AUROC=0.8267
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 20841.75it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [F2] CB sd=0 val=0.8140 test=0.7288 (126s)
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Exception in thread Thread-auto_conversion:
+Traceback (most recent call last):
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 761, in hf_raise_for_status
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 117, in auto_conversion
+    raise e
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 96, in auto_conversion
+    sha = get_conversion_pr_reference(api, pretrained_model_name_or_path, **cached_file_kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 60, in get_conversion_pr_reference
+    private = api.model_info(model_id).private
+              ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\hf_api.py", line 3209, in model_info
+    hf_raise_for_status(r)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 868, in hf_raise_for_status
+    raise _format(HfHubHTTPError, message, response) from e
+huggingface_hub.errors.HfHubHTTPError: (Amz CF ID: vB5gpPBQm3cVPOojI0jPbqXrXJhc7XqBFXjhBKr-xocl1Vx8j5Ry1w==)
+
+429 Too Many Requests for url: https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 24284.26it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [F2] CB sd=1 val=0.7797 test=0.8023 (308s)
+  [F2] ChemBERTa AUROC=0.8008
+  [F2] mean        AUROC=0.8531  ACC=0.8000  F1=0.7397  MCC=0.5775
+  [F2] geom-mean   AUROC=0.8625  ACC=0.8000  F1=0.7467  MCC=0.5832
+  [F2] rank-avg    AUROC=0.8500  ACC=0.8000  F1=0.7765  MCC=0.6266
+  [F2] meta-XGB    AUROC=0.7994  ACC=0.6211  F1=0.6087  MCC=0.2990
+
+[cv5] fold 2 done; saved partial results to tdc_cv5_partial.json
+
+
+========== FOLD 3/5  tr/va/te=284/94/94 ==========
+  [F3] GCN sd=0 val_auc=0.8794 test_auc=0.9330 (5s)
+  [F3] GCN sd=1 val_auc=0.8907 test_auc=0.9375 (5s)
+  [F3] --> GCN bagged AUROC=0.9360
+  [F3] GAT sd=0 val_auc=0.8775 test_auc=0.9395 (27s)
+  [F3] GAT sd=1 val_auc=0.8745 test_auc=0.9234 (20s)
+  [F3] --> GAT bagged AUROC=0.9355
+  [F3] GraphSAGE sd=0 val_auc=0.8789 test_auc=0.8785 (4s)
+  [F3] GraphSAGE sd=1 val_auc=0.8946 test_auc=0.8861 (4s)
+  [F3] --> GraphSAGE bagged AUROC=0.8896
+  [F3] GIN sd=0 val_auc=0.8373 test_auc=0.8569 (3s)
+  [F3] GIN sd=1 val_auc=0.8892 test_auc=0.8972 (3s)
+  [F3] --> GIN bagged AUROC=0.8896
+  [F3] MPNN sd=0 val_auc=0.8632 test_auc=0.8906 (102s)
+  [F3] MPNN sd=1 val_auc=0.8784 test_auc=0.8659 (71s)
+  [F3] --> MPNN bagged AUROC=0.8901
+  [F3] MolFormer AUROC=0.7394
+  [F3] AttentiveFP sd=0 val=0.8603 test=0.9143
+  [F3] AttentiveFP sd=1 val=0.8711 test=0.9435
+  [F3] AttentiveFP bagged AUROC=0.9299
+  [F3] Hybrid AUROC=0.8967
+  [F3] Specialists AUROC=0.7566
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Exception in thread Thread-auto_conversion:
+Traceback (most recent call last):
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 761, in hf_raise_for_status
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 117, in auto_conversion
+    raise e
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 96, in auto_conversion
+    sha = get_conversion_pr_reference(api, pretrained_model_name_or_path, **cached_file_kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 60, in get_conversion_pr_reference
+    private = api.model_info(model_id).private
+              ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\hf_api.py", line 3209, in model_info
+    hf_raise_for_status(r)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 868, in hf_raise_for_status
+    raise _format(HfHubHTTPError, message, response) from e
+huggingface_hub.errors.HfHubHTTPError: (Amz CF ID: i6Rr7p7uVCP8vj9Sf47vHpuOZn3ZPRlEW9iOT-LOLqTaz9hlTsFu_g==)
+
+429 Too Many Requests for url: https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 33564.56it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [F3] CB sd=0 val=0.8765 test=0.8175 (265s)
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Exception in thread Thread-auto_conversion:
+Traceback (most recent call last):
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 761, in hf_raise_for_status
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 117, in auto_conversion
+    raise e
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 96, in auto_conversion
+    sha = get_conversion_pr_reference(api, pretrained_model_name_or_path, **cached_file_kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 60, in get_conversion_pr_reference
+    private = api.model_info(model_id).private
+              ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\hf_api.py", line 3209, in model_info
+    hf_raise_for_status(r)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 868, in hf_raise_for_status
+    raise _format(HfHubHTTPError, message, response) from e
+huggingface_hub.errors.HfHubHTTPError: (Amz CF ID: 2AIWT0q3_0fv-Z-HZvTftm8m3zZK_GKNd3N8ICP5xajglFFU_f8zKA==)
+
+429 Too Many Requests for url: https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 26429.45it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [F3] CB sd=1 val=0.8706 test=0.8821 (265s)
+  [F3] ChemBERTa AUROC=0.8634
+  [F3] mean        AUROC=0.9138  ACC=0.8191  F1=0.8661  MCC=0.5895
+  [F3] geom-mean   AUROC=0.9113  ACC=0.8085  F1=0.8594  MCC=0.5630
+  [F3] rank-avg    AUROC=0.9166  ACC=0.8298  F1=0.8730  MCC=0.6159
+  [F3] meta-XGB    AUROC=0.8468  ACC=0.7979  F1=0.8403  MCC=0.5700
+
+[cv5] fold 3 done; saved partial results to tdc_cv5_partial.json
+
+
+========== FOLD 4/5  tr/va/te=284/94/94 ==========
+  [F4] GCN sd=0 val_auc=0.8916 test_auc=0.8407 (5s)
+  [F4] GCN sd=1 val_auc=0.8844 test_auc=0.8324 (3s)
+  [F4] --> GCN bagged AUROC=0.8412
+  [F4] GAT sd=0 val_auc=0.8794 test_auc=0.8255 (10s)
+  [F4] GAT sd=1 val_auc=0.8798 test_auc=0.8539 (16s)
+  [F4] --> GAT bagged AUROC=0.8471
+  [F4] GraphSAGE sd=0 val_auc=0.8780 test_auc=0.8201 (2s)
+  [F4] GraphSAGE sd=1 val_auc=0.8771 test_auc=0.8417 (2s)
+  [F4] --> GraphSAGE bagged AUROC=0.8314
+  [F4] GIN sd=0 val_auc=0.8621 test_auc=0.8544 (3s)
+  [F4] GIN sd=1 val_auc=0.8621 test_auc=0.8549 (3s)
+  [F4] --> GIN bagged AUROC=0.8672
+  [F4] MPNN sd=0 val_auc=0.8844 test_auc=0.7966 (36s)
+  [F4] MPNN sd=1 val_auc=0.8925 test_auc=0.8211 (51s)
+  [F4] --> MPNN bagged AUROC=0.8118
+  [F4] MolFormer AUROC=0.7456
+  [F4] AttentiveFP sd=0 val=0.9007 test=0.8593
+  [F4] AttentiveFP sd=1 val=0.8984 test=0.8368
+  [F4] AttentiveFP bagged AUROC=0.8510
+  [F4] Hybrid AUROC=0.8294
+  [F4] Specialists AUROC=0.7951
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Exception in thread Thread-auto_conversion:
+Traceback (most recent call last):
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 761, in hf_raise_for_status
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 117, in auto_conversion
+    raise e
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 96, in auto_conversion
+    sha = get_conversion_pr_reference(api, pretrained_model_name_or_path, **cached_file_kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 60, in get_conversion_pr_reference
+    private = api.model_info(model_id).private
+              ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\hf_api.py", line 3209, in model_info
+    hf_raise_for_status(r)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 868, in hf_raise_for_status
+    raise _format(HfHubHTTPError, message, response) from e
+huggingface_hub.errors.HfHubHTTPError: (Amz CF ID: PnhFxHs2gYmL0aPUXNJE8YbvuXf30CVV4y1j10Mjg2NAsqUHe5KdvQ==)
+
+429 Too Many Requests for url: https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 28986.58it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [F4] CB sd=0 val=0.8698 test=0.8505 (223s)
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 27546.23it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [F4] CB sd=1 val=0.8626 test=0.8652 (221s)
+  [F4] ChemBERTa AUROC=0.8603
+  [F4] mean        AUROC=0.8657  ACC=0.8404  F1=0.8739  MCC=0.6568
+  [F4] geom-mean   AUROC=0.8642  ACC=0.7553  F1=0.7767  MCC=0.5579
+  [F4] rank-avg    AUROC=0.8645  ACC=0.8511  F1=0.8750  MCC=0.7040
+  [F4] meta-XGB    AUROC=0.8681  ACC=0.8404  F1=0.8739  MCC=0.6568
+
+[cv5] fold 4 done; saved partial results to tdc_cv5_partial.json
+
+
+========== FOLD 5/5  tr/va/te=283/95/94 ==========
+  [F5] GCN sd=0 val_auc=0.8509 test_auc=0.8807 (6s)
+  [F5] GCN sd=1 val_auc=0.8519 test_auc=0.8680 (6s)
+  [F5] --> GCN bagged AUROC=0.8776
+  [F5] GAT sd=0 val_auc=0.8490 test_auc=0.8907 (21s)
+  [F5] GAT sd=1 val_auc=0.8333 test_auc=0.8930 (22s)
+  [F5] --> GAT bagged AUROC=0.8907
+  [F5] GraphSAGE sd=0 val_auc=0.8773 test_auc=0.8630 (4s)
+  [F5] GraphSAGE sd=1 val_auc=0.8671 test_auc=0.8825 (5s)
+  [F5] --> GraphSAGE bagged AUROC=0.8730
+  [F5] GIN sd=0 val_auc=0.8152 test_auc=0.8789 (4s)
+  [F5] GIN sd=1 val_auc=0.8167 test_auc=0.8472 (6s)
+  [F5] --> GIN bagged AUROC=0.8739
+  [F5] MPNN sd=0 val_auc=0.7869 test_auc=0.9039 (51s)
+  [F5] MPNN sd=1 val_auc=0.7747 test_auc=0.8771 (40s)
+  [F5] --> MPNN bagged AUROC=0.8952
+  [F5] MolFormer AUROC=0.7692
+  [F5] AttentiveFP sd=0 val=0.8744 test=0.8902
+  [F5] AttentiveFP sd=1 val=0.8509 test=0.8952
+  [F5] AttentiveFP bagged AUROC=0.8948
+  [F5] Hybrid AUROC=0.8735
+  [F5] Specialists AUROC=0.8263
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Exception in thread Thread-auto_conversion:
+Traceback (most recent call last):
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 761, in hf_raise_for_status
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 117, in auto_conversion
+    raise e
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 96, in auto_conversion
+    sha = get_conversion_pr_reference(api, pretrained_model_name_or_path, **cached_file_kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\transformers\safetensors_conversion.py", line 60, in get_conversion_pr_reference
+    private = api.model_info(model_id).private
+              ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\hf_api.py", line 3209, in model_info
+    hf_raise_for_status(r)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\sifat\Desktop\dili_project\venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 868, in hf_raise_for_status
+    raise _format(HfHubHTTPError, message, response) from e
+huggingface_hub.errors.HfHubHTTPError: (Amz CF ID: S6wrS8pkMornTZ6o_k-ie3I6z2UB-CgWNMhgpA_FX2WF0P74GLYczA==)
+
+429 Too Many Requests for url: https://huggingface.co/api/models/DeepChem/ChemBERTa-77M-MTR.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 36081.50it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [F5] CB sd=0 val=0.8201 test=0.9066 (353s)
+[transformers] You passed `num_labels=1` which is incompatible to the `id2label` map of length `199`.
+Loading weights:   0%|          | 0/53 [00:00<?, ?it/s]Loading weights: 100%|##########| 53/53 [00:00<00:00, 20975.48it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: DeepChem/ChemBERTa-77M-MTR
+Key                        | Status     | 
+---------------------------+------------+-
+norm_std                   | UNEXPECTED | 
+regression.dense.weight    | UNEXPECTED | 
+norm_mean                  | UNEXPECTED | 
+regression.dense.bias      | UNEXPECTED | 
+regression.out_proj.bias   | UNEXPECTED | 
+regression.out_proj.weight | UNEXPECTED | 
+classifier.dense.weight    | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  [F5] CB sd=1 val=0.8328 test=0.8789 (283s)
+  [F5] ChemBERTa AUROC=0.8948
+  [F5] mean        AUROC=0.8916  ACC=0.7979  F1=0.8081  MCC=0.6094
+  [F5] geom-mean   AUROC=0.8889  ACC=0.8723  F1=0.8696  MCC=0.7454
+  [F5] rank-avg    AUROC=0.8957  ACC=0.8617  F1=0.8571  MCC=0.7233
+  [F5] meta-XGB    AUROC=0.8245  ACC=0.7447  F1=0.7209  MCC=0.4884
+
+[cv5] fold 5 done; saved partial results to tdc_cv5_partial.json
+
+
+========== 5-FOLD CV AGGREGATE ==========
+     method  AUROC_mean  AUROC_std  ACC_mean  ACC_std  F1_mean   F1_std  MCC_mean  MCC_std
+       mean    0.867795   0.033815  0.807279 0.020899 0.801580 0.063133  0.597134 0.035062
+  geom-mean    0.868434   0.032051  0.803024 0.039241 0.794461 0.059998  0.600369 0.073233
+   rank-avg    0.868700   0.034899  0.826405 0.028023 0.819183 0.063690  0.644101 0.062748
+   meta-XGB    0.830231   0.024547  0.752385 0.073700 0.745769 0.098469  0.502286 0.118317
+        GCN    0.860800   0.042710  0.790325 0.037253 0.783982 0.071734  0.571780 0.068931
+        GAT    0.858506   0.048750  0.811669 0.047018 0.785475 0.109959  0.594533 0.106813
+  GraphSAGE    0.842445   0.033182  0.762732 0.027201 0.741011 0.086546  0.506090 0.044834
+        GIN    0.859274   0.024370  0.792475 0.052261 0.796806 0.074843  0.587401 0.071871
+       MPNN    0.837775   0.046259  0.796842 0.058152 0.792484 0.085445  0.583763 0.110804
+  molformer    0.757123   0.057460  0.639821 0.053715 0.546586 0.092080  0.319252 0.091645
+AttentiveFP    0.870774   0.036931  0.805308 0.046667 0.785427 0.093220  0.599018 0.091932
+     hybrid    0.849418   0.030951  0.794513 0.010321 0.783899 0.051793  0.593042 0.025104
+specialists    0.775739   0.057013  0.703359 0.044987 0.657967 0.065722  0.399642 0.109592
+  chemberta    0.845841   0.035302  0.758634 0.059185 0.725658 0.140055  0.488724 0.159736
+
+[BEST mean AUROC]
+     method  AUROC_mean  AUROC_std  ACC_mean  ACC_std  F1_mean   F1_std  MCC_mean  MCC_std
+AttentiveFP    0.870774   0.036931  0.805308 0.046667 0.785427 0.093220  0.599018 0.091932
+   rank-avg    0.868700   0.034899  0.826405 0.028023 0.819183 0.063690  0.644101 0.062748
+  geom-mean    0.868434   0.032051  0.803024 0.039241 0.794461 0.059998  0.600369 0.073233
+       mean    0.867795   0.033815  0.807279 0.020899 0.801580 0.063133  0.597134 0.035062
+        GCN    0.860800   0.042710  0.790325 0.037253 0.783982 0.071734  0.571780 0.068931
+        GIN    0.859274   0.024370  0.792475 0.052261 0.796806 0.074843  0.587401 0.071871
+        GAT    0.858506   0.048750  0.811669 0.047018 0.785475 0.109959  0.594533 0.106813
+     hybrid    0.849418   0.030951  0.794513 0.010321 0.783899 0.051793  0.593042 0.025104
+
+[BEST mean ACC]
+     method  AUROC_mean  AUROC_std  ACC_mean  ACC_std  F1_mean   F1_std  MCC_mean  MCC_std
+   rank-avg    0.868700   0.034899  0.826405 0.028023 0.819183 0.063690  0.644101 0.062748
+        GAT    0.858506   0.048750  0.811669 0.047018 0.785475 0.109959  0.594533 0.106813
+       mean    0.867795   0.033815  0.807279 0.020899 0.801580 0.063133  0.597134 0.035062
+AttentiveFP    0.870774   0.036931  0.805308 0.046667 0.785427 0.093220  0.599018 0.091932
+  geom-mean    0.868434   0.032051  0.803024 0.039241 0.794461 0.059998  0.600369 0.073233
+       MPNN    0.837775   0.046259  0.796842 0.058152 0.792484 0.085445  0.583763 0.110804
+     hybrid    0.849418   0.030951  0.794513 0.010321 0.783899 0.051793  0.593042 0.025104
+        GIN    0.859274   0.024370  0.792475 0.052261 0.796806 0.074843  0.587401 0.071871
+
+[BEST mean MCC]
+     method  AUROC_mean  AUROC_std  ACC_mean  ACC_std  F1_mean   F1_std  MCC_mean  MCC_std
+   rank-avg    0.868700   0.034899  0.826405 0.028023 0.819183 0.063690  0.644101 0.062748
+  geom-mean    0.868434   0.032051  0.803024 0.039241 0.794461 0.059998  0.600369 0.073233
+AttentiveFP    0.870774   0.036931  0.805308 0.046667 0.785427 0.093220  0.599018 0.091932
+       mean    0.867795   0.033815  0.807279 0.020899 0.801580 0.063133  0.597134 0.035062
+        GAT    0.858506   0.048750  0.811669 0.047018 0.785475 0.109959  0.594533 0.106813
+     hybrid    0.849418   0.030951  0.794513 0.010321 0.783899 0.051793  0.593042 0.025104
+        GIN    0.859274   0.024370  0.792475 0.052261 0.796806 0.074843  0.587401 0.071871
+       MPNN    0.837775   0.046259  0.796842 0.058152 0.792484 0.085445  0.583763 0.110804

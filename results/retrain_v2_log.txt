@@ -1,0 +1,67 @@
+[retrain] device=cpu seeds=5 final_epochs=100
+[data] raw=881  cleaned/uniq=869  graphable=869
+[data] atom_feat_dim=54  bond_feat_dim=7  global_desc_dim=14
+[retrain] split  train=521  val=173  test=175
+[retrain] GCN: method=optuna_tpe val_auc=0.7030
+[retrain] GAT: method=grid_search val_auc=0.6971
+[retrain] GraphSAGE: method=grid_search val_auc=0.6957
+[retrain] GIN: method=grid_search val_auc=0.7346
+[retrain] MPNN: method=optuna_tpe val_auc=0.6801
+[retrain] seeds = [42, 7, 13, 21, 100]
+
+[retrain] -- GCN --
+  seed=42 best_val_auc=0.7549 test_auc=0.6956
+  seed=7 best_val_auc=0.7051 test_auc=0.6599
+  seed=13 best_val_auc=0.7430 test_auc=0.6372
+  seed=21 best_val_auc=0.8067 test_auc=0.6616
+  seed=100 best_val_auc=0.7760 test_auc=0.6921
+
+[retrain] -- GAT --
+  seed=42 best_val_auc=0.8051 test_auc=0.6983
+  seed=7 best_val_auc=0.7327 test_auc=0.6643
+  seed=13 best_val_auc=0.7204 test_auc=0.6687
+  seed=21 best_val_auc=0.7941 test_auc=0.6732
+  seed=100 best_val_auc=0.7707 test_auc=0.6795
+
+[retrain] -- GraphSAGE --
+  seed=42 best_val_auc=0.7372 test_auc=0.7055
+  seed=7 best_val_auc=0.7071 test_auc=0.6765
+  seed=13 best_val_auc=0.7840 test_auc=0.7073
+  seed=21 best_val_auc=0.7891 test_auc=0.6515
+  seed=100 best_val_auc=0.7910 test_auc=0.6743
+
+[retrain] -- GIN --
+  seed=42 best_val_auc=0.7416 test_auc=0.6933
+  seed=7 best_val_auc=0.7776 test_auc=0.6965
+  seed=13 best_val_auc=0.7936 test_auc=0.7080
+  seed=21 best_val_auc=0.7134 test_auc=0.6875
+  seed=100 best_val_auc=0.7937 test_auc=0.6926
+
+[retrain] -- MPNN --
+  capping MPNN batch_size 64 -> 16 (memory)
+  seed=42 best_val_auc=0.7954 test_auc=0.6511
+  seed=7 best_val_auc=0.7357 test_auc=0.6791
+  seed=13 best_val_auc=0.7648 test_auc=0.5988
+  seed=21 best_val_auc=0.8084 test_auc=0.6419
+  seed=100 best_val_auc=0.7469 test_auc=0.6464
+
+[retrain] GNN ensemble + threshold tuning
+
+DILI retrain-only summary (5+ seeds, no re-tune)  elapsed 45.4 min
+Dataset: n=869  pos=528
+Splits  train/val/test = 521/173/175
+
+Final results (mean +/- std over 5 seeds, sorted by AUROC):
+  GIN        AUROC=0.6956+/-0.0068 (CI 0.641-0.794)  ACC=0.6640  F1=0.7345  MCC=0.2803
+  GraphSAGE  AUROC=0.6830+/-0.0210 (CI 0.627-0.782)  ACC=0.6663  F1=0.7464  MCC=0.2706
+  GAT        AUROC=0.6768+/-0.0119 (CI 0.620-0.771)  ACC=0.6297  F1=0.6820  MCC=0.2427
+  GCN        AUROC=0.6693+/-0.0218 (CI 0.623-0.768)  ACC=0.6229  F1=0.6675  MCC=0.2279
+  MPNN       AUROC=0.6434+/-0.0258 (CI 0.579-0.743)  ACC=0.6057  F1=0.6232  MCC=0.2143
+
+Threshold-tuned (val-MCC) metrics:
+  GCN            thr=0.50  AUROC=0.6956  ACC=0.6686  F1=0.7542  MCC=0.2654
+  GAT            thr=0.52  AUROC=0.6933  ACC=0.6114  F1=0.6600  MCC=0.2171
+  GraphSAGE      thr=0.48  AUROC=0.7022  ACC=0.6571  F1=0.7479  MCC=0.2359
+  GIN            thr=0.44  AUROC=0.7204  ACC=0.6800  F1=0.7627  MCC=0.2919
+  MPNN           thr=0.52  AUROC=0.6578  ACC=0.6514  F1=0.7189  MCC=0.2603
+  GNN-Ensemble   thr=0.52  AUROC=0.7066  ACC=0.6571  F1=0.7273  MCC=0.2665

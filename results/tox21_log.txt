@@ -1,0 +1,26 @@
+[tox21_aux] loading Tox21 ...
+  Tox21 raw: (7831, 14), columns: ['NR-AR', 'NR-AR-LBD', 'NR-AhR', 'NR-Aromatase', 'NR-ER']...
+[tox21_aux] computing Morgan FPs for Tox21 molecules ...
+  Tox21 FP matrix: (7831, 2048) in 2s
+[tox21_aux] loading DILIrank ...
+[data] raw=881  cleaned/uniq=869  graphable=869
+[data] atom_feat_dim=54  bond_feat_dim=7  global_desc_dim=14
+  DILI split  tr=521 va=173 te=175
+[tox21_aux] computing Morgan FPs for DILI molecules ...
+  DILI FP matrix: (869, 2048)
+  [NR-AR         ] n=7265  pos= 309  cv_auc=0.7997
+  [NR-AR-LBD     ] n=6758  pos= 237  cv_auc=0.8689
+  [NR-AhR        ] n=6549  pos= 768  cv_auc=0.8719
+  [NR-Aromatase  ] n=5821  pos= 300  cv_auc=0.7930
+  [NR-ER         ] n=6193  pos= 793  cv_auc=0.7136
+  [NR-ER-LBD     ] n=6955  pos= 350  cv_auc=0.7840
+  [NR-PPAR-gamma ] n=6450  pos= 186  cv_auc=0.7818
+  [SR-ARE        ] n=5832  pos= 942  cv_auc=0.7582
+  [SR-ATAD5      ] n=7072  pos= 264  cv_auc=0.8117
+  [SR-HSE        ] n=6467  pos= 372  cv_auc=0.7232
+  [SR-MMP        ] n=5810  pos= 918  cv_auc=0.8427
+  [SR-p53        ] n=6774  pos= 423  cv_auc=0.7912
+
+[tox21_aux] Tox21-mean baseline on DILI test:  AUROC=0.5457
+[tox21_aux] Tox21-mean baseline on DILI val:    AUROC=0.6515
+[tox21_aux] wrote results/tox21_{test,val}_probs.npz + tox21_endpoint_aurocs.csv

@@ -40,7 +40,8 @@ def _train_eval_with_params(
     set_seed(seed)
     in_dim = graphs[0].x.shape[1]
     edge_dim = graphs[0].edge_attr.shape[1]
-    model = build_model(model_name, in_dim, edge_dim, params)
+    desc_dim = graphs[0].u.shape[1] if hasattr(graphs[0], "u") and graphs[0].u is not None else 0
+    model = build_model(model_name, in_dim, edge_dim, params, desc_dim=desc_dim)
     train_loader = make_loader(graphs, train_idx, batch_size=params["batch_size"], shuffle=True)
     val_loader = make_loader(graphs, val_idx, batch_size=params["batch_size"], shuffle=False)
     pos_w = compute_pos_weight(graphs, train_idx)

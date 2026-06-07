@@ -106,6 +106,7 @@ def retrain_evaluate(
     """Train with best params N times (different seeds). Return per-seed test+val probs."""
     in_dim = graphs[0].x.shape[1]
     edge_dim = graphs[0].edge_attr.shape[1]
+    desc_dim = graphs[0].u.shape[1] if hasattr(graphs[0], "u") and graphs[0].u is not None else 0
     test_loader = make_loader(graphs, test_idx, batch_size=64, shuffle=False)
     # Use the original outer val (not the inner val) for stacking meta-features so
     # all models share the same val rows.
@@ -117,7 +118,7 @@ def retrain_evaluate(
     for s in seeds:
         inner_train, inner_val = split_for_seed(train_idx, val_idx, s)
         set_seed(s)
-        model = build_model(model_name, in_dim, edge_dim, params)
+        model = build_model(model_name, in_dim, edge_dim, params, desc_dim=desc_dim)
         train_loader = make_loader(graphs, inner_train, batch_size=params["batch_size"], shuffle=True)
         v_loader = make_loader(graphs, inner_val, batch_size=params["batch_size"], shuffle=False)
         pos_w = compute_pos_weight(graphs, inner_train)

@@ -1,13 +1,13 @@
 {
   "method": "optuna_tpe",
+  "best_value": 0.7165945165945167,
   "params": {
-    "lr": 0.002595942550311264,
-    "weight_decay": 7.068974950624607e-06,
-    "hidden_dim": 128,
-    "num_layers": 3,
-    "dropout": 0.2727780074568463,
-    "optimizer_name": "adamw",
-    "batch_size": 64
-  },
-  "best_value": 0.6800865800865801
+    "lr": 0.000578188825814728,
+    "weight_decay": 8.176041848683015e-06,
+    "hidden_dim": 64,
+    "num_layers": 4,
+    "dropout": 0.30971849855125255,
+    "optimizer_name": "adam",
+    "batch_size": 16
+  }
 }

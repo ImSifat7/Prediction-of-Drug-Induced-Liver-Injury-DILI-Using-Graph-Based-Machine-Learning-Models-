@@ -1,0 +1,17 @@
+
+[stack] classical-only  base models = ['XGBoost', 'RandomForest', 'LogReg', 'SVM']
+  mean              thr=0.50  AUROC=0.6846  ACC=0.6629  F1=0.7572  MCC=0.2432
+  logreg-stack      thr=0.40  AUROC=0.6867  ACC=0.6800  F1=0.7705  MCC=0.2844
+
+[stack] gnn-only  base models = ['GCN', 'GAT', 'GraphSAGE', 'GIN', 'MPNN']
+  mean              thr=0.48  AUROC=0.7037  ACC=0.6514  F1=0.7313  MCC=0.2409
+  logreg-stack      thr=0.56  AUROC=0.6902  ACC=0.6171  F1=0.6700  MCC=0.2212
+
+[stack] chemberta-only  base models = ['ChemBERTa']
+  standalone        thr=0.44  AUROC=0.6762  ACC=0.7086  F1=0.7918  MCC=0.3550
+
+[stack] full  base models = ['XGBoost', 'RandomForest', 'LogReg', 'SVM', 'GCN', 'GAT', 'GraphSAGE', 'GIN', 'MPNN', 'ChemBERTa']
+  mean              thr=0.53  AUROC=0.7113  ACC=0.6857  F1=0.7577  MCC=0.3165
+  logreg-stack      thr=0.58  AUROC=0.6844  ACC=0.6171  F1=0.6633  MCC=0.2315
+
+[stack] wrote C:\Users\sifat\Desktop\dili_project\results\stack_metrics.csv

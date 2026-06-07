@@ -1,0 +1,26 @@
+[retune] device=cpu  n_trials=20  models=['GCN', 'GAT', 'GraphSAGE', 'GIN', 'MPNN']
+[data] raw=881  cleaned/uniq=869  graphable=869
+[data] atom_feat_dim=54  bond_feat_dim=7  global_desc_dim=14
+[retune] split tr=521 va=173
+
+[retune] === GCN (old val_auc=0.7030) ===
+[retune] GCN new val_auc=0.7216  delta=+0.0186  (227s)  -> UPDATE
+
+[retune] === GAT (old val_auc=0.6971) ===
+[retune] GAT new val_auc=0.7177  delta=+0.0206  (644s)  -> UPDATE
+
+[retune] === GraphSAGE (old val_auc=0.6957) ===
+[retune] GraphSAGE new val_auc=0.7312  delta=+0.0355  (157s)  -> UPDATE
+
+[retune] === GIN (old val_auc=0.7346) ===
+[retune] GIN new val_auc=0.7058  delta=-0.0289  (207s)  -> KEEP-OLD
+
+[retune] === MPNN (old val_auc=0.6801) ===
+[retune] MPNN new val_auc=0.7166  delta=+0.0365  (3668s)  -> UPDATE
+
+[retune] wrote results/retune_summary.csv
+  GCN        0.7030 -> 0.7216 (+0.0186) UPDATE
+  GAT        0.6971 -> 0.7177 (+0.0206) UPDATE
+  GraphSAGE  0.6957 -> 0.7312 (+0.0355) UPDATE
+  GIN        0.7346 -> 0.7058 (-0.0289) KEEP-OLD
+  MPNN       0.6801 -> 0.7166 (+0.0365) UPDATE

@@ -1,14 +1,14 @@
 {
-  "method": "grid_search",
+  "method": "optuna_tpe",
+  "best_value": 0.7311688311688311,
   "params": {
-    "lr": 0.001,
-    "weight_decay": 0.001,
-    "hidden_dim": 64,
-    "num_layers": 3,
-    "dropout": 0.3,
+    "lr": 0.0012362980568032132,
+    "weight_decay": 0.00017118189562429466,
+    "hidden_dim": 32,
+    "num_layers": 4,
+    "dropout": 0.23264700577903058,
     "optimizer_name": "adam",
     "batch_size": 32,
-    "aggr": "max"
-  },
-  "best_value": 0.6956709956709957
+    "aggr": "mean"
+  }
 }

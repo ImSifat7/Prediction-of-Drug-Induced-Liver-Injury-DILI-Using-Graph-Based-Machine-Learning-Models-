@@ -1,0 +1,38 @@
+[molformer] device=cpu
+[data] raw=881  cleaned/uniq=869  graphable=869
+[data] atom_feat_dim=54  bond_feat_dim=7  global_desc_dim=14
+[molformer] split  tr=521 va=173 te=175
+[molformer] loading ibm/MoLFormer-XL-both-10pct ...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/207 [00:00<?, ?it/s]Loading weights: 100%|##########| 207/207 [00:00<00:00, 7760.29it/s]
+[transformers] [1mMolformerModel LOAD REPORT[0m from: ibm/MoLFormer-XL-both-10pct
+Key                                | Status     |  | 
+-----------------------------------+------------+--+-
+lm_head.transform.dense.weight     | UNEXPECTED |  | 
+lm_head.transform.dense.bias       | UNEXPECTED |  | 
+lm_head.transform.LayerNorm.bias   | UNEXPECTED |  | 
+lm_head.transform.LayerNorm.weight | UNEXPECTED |  | 
+lm_head.decoder.weight             | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[molformer] loaded in 6.2s — extracting embeddings...
+[transformers] `use_return_dict` is deprecated! Use `return_dict` instead!
+  [0/869] 0.9 mol/s  ETA=1003s
+  [80/869] 18.0 mol/s  ETA=44s
+  [160/869] 19.1 mol/s  ETA=37s
+  [240/869] 17.4 mol/s  ETA=36s
+  [320/869] 17.5 mol/s  ETA=31s
+  [400/869] 17.9 mol/s  ETA=26s
+  [480/869] 18.2 mol/s  ETA=21s
+  [560/869] 18.7 mol/s  ETA=17s
+  [640/869] 19.0 mol/s  ETA=12s
+  [720/869] 19.5 mol/s  ETA=8s
+  [800/869] 19.3 mol/s  ETA=4s
+[molformer] extraction took 45.4s for 869 molecules
+[molformer] embeddings shape: (869, 768)
+[molformer] training bagged XGBoost (5 seeds)...
+  thr=0.90 (tuned-for-MCC)  AUROC=0.7034  ACC=0.5771  F1=0.5542  MCC=0.2549
+  thr=0.15 (tuned-for-ACC)  AUROC=0.7034  ACC=0.6571  F1=0.7794  MCC=0.2319
+  thr=0.15 (tuned-for-F1)  AUROC=0.7034  ACC=0.6571  F1=0.7794  MCC=0.2319
+[molformer] wrote results/molformer_metrics.csv + molformer_*_probs.npz

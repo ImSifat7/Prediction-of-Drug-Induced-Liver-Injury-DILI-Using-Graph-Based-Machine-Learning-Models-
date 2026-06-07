@@ -1,0 +1,84 @@
+[cv] device=cpu  n_splits=10  models=['GCN', 'GAT', 'GraphSAGE', 'GIN', 'MPNN']
+[data] raw=881  cleaned/uniq=869  graphable=869
+[data] atom_feat_dim=54  bond_feat_dim=7  global_desc_dim=10
+[cv] building scaffold-grouped k-fold splits…
+  fold 0  train n=782 pos=477  test n=87 pos=51
+  fold 1  train n=783 pos=492  test n=86 pos=36
+  fold 2  train n=782 pos=472  test n=87 pos=56
+  fold 3  train n=782 pos=473  test n=87 pos=55
+  fold 4  train n=782 pos=473  test n=87 pos=55
+  fold 5  train n=782 pos=473  test n=87 pos=55
+  fold 6  train n=782 pos=472  test n=87 pos=56
+  fold 7  train n=782 pos=473  test n=87 pos=55
+  fold 8  train n=782 pos=473  test n=87 pos=55
+  fold 9  train n=782 pos=474  test n=87 pos=54
+
+[cv] === GCN ===
+  fold 0  best_val_auc=0.7143  test_auc=0.6667  acc=0.5632  mcc=0.2558  (6s)
+  fold 1  best_val_auc=0.7026  test_auc=0.6739  acc=0.6512  mcc=0.2892  (9s)
+  fold 2  best_val_auc=0.8108  test_auc=0.5887  acc=0.5287  mcc=0.0915  (32s)
+  fold 3  best_val_auc=0.6616  test_auc=0.6352  acc=0.6437  mcc=0.2492  (5s)
+  fold 4  best_val_auc=0.7410  test_auc=0.6199  acc=0.5747  mcc=0.0674  (6s)
+  fold 5  best_val_auc=0.7081  test_auc=0.6972  acc=0.6322  mcc=0.2773  (13s)
+  fold 6  best_val_auc=0.7381  test_auc=0.7062  acc=0.5977  mcc=0.3435  (5s)
+  fold 7  best_val_auc=0.7356  test_auc=0.6676  acc=0.6437  mcc=0.2191  (7s)
+  fold 8  best_val_auc=0.7738  test_auc=0.7108  acc=0.6782  mcc=0.3375  (8s)
+  fold 9  best_val_auc=0.7608  test_auc=0.6027  acc=0.6782  mcc=0.2719  (7s)
+
+[cv] === GAT ===
+  fold 0  best_val_auc=0.7325  test_auc=0.6656  acc=0.5977  mcc=0.2791  (12s)
+  fold 1  best_val_auc=0.7572  test_auc=0.7011  acc=0.6512  mcc=0.2603  (21s)
+  fold 2  best_val_auc=0.7419  test_auc=0.6002  acc=0.5517  mcc=0.1398  (26s)
+  fold 3  best_val_auc=0.6611  test_auc=0.6153  acc=0.6207  mcc=0.2117  (8s)
+  fold 4  best_val_auc=0.7353  test_auc=0.6295  acc=0.5632  mcc=0.1217  (20s)
+  fold 5  best_val_auc=0.6968  test_auc=0.6841  acc=0.5862  mcc=0.2524  (27s)
+  fold 6  best_val_auc=0.7189  test_auc=0.7477  acc=0.6667  mcc=0.3126  (9s)
+  fold 7  best_val_auc=0.7266  test_auc=0.6455  acc=0.6322  mcc=0.1400  (21s)
+  fold 8  best_val_auc=0.7500  test_auc=0.7216  acc=0.6092  mcc=0.2704  (14s)
+  fold 9  best_val_auc=0.7746  test_auc=0.6958  acc=0.4943  mcc=0.1115  (22s)
+
+[cv] === GraphSAGE ===
+  fold 0  best_val_auc=0.7430  test_auc=0.6166  acc=0.5862  mcc=0.1854  (17s)
+  fold 1  best_val_auc=0.7326  test_auc=0.6317  acc=0.5465  mcc=0.0943  (9s)
+  fold 2  best_val_auc=0.8148  test_auc=0.5783  acc=0.5632  mcc=0.1150  (25s)
+  fold 3  best_val_auc=0.6555  test_auc=0.6432  acc=0.6092  mcc=0.2426  (5s)
+  fold 4  best_val_auc=0.7076  test_auc=0.6170  acc=0.6092  mcc=0.2562  (7s)
+  fold 5  best_val_auc=0.6725  test_auc=0.6915  acc=0.7126  mcc=0.3708  (14s)
+  fold 6  best_val_auc=0.7104  test_auc=0.7298  acc=0.6437  mcc=0.2898  (6s)
+  fold 7  best_val_auc=0.7535  test_auc=0.6335  acc=0.6782  mcc=0.2522  (13s)
+  fold 8  best_val_auc=0.7952  test_auc=0.6801  acc=0.6782  mcc=0.2909  (12s)
+  fold 9  best_val_auc=0.7514  test_auc=0.6599  acc=0.6322  mcc=0.2010  (8s)
+
+[cv] === GIN ===
+  fold 0  best_val_auc=0.7562  test_auc=0.6514  acc=0.6207  mcc=0.3021  (12s)
+  fold 1  best_val_auc=0.7853  test_auc=0.7306  acc=0.6744  mcc=0.3575  (16s)
+  fold 2  best_val_auc=0.7506  test_auc=0.6319  acc=0.5977  mcc=0.1674  (33s)
+  fold 3  best_val_auc=0.6476  test_auc=0.7807  acc=0.7356  mcc=0.4436  (10s)
+  fold 4  best_val_auc=0.7494  test_auc=0.5642  acc=0.5862  mcc=0.0986  (13s)
+  fold 5  best_val_auc=0.7087  test_auc=0.6528  acc=0.6322  mcc=0.2303  (15s)
+  fold 6  best_val_auc=0.7161  test_auc=0.7206  acc=0.6092  mcc=0.3008  (10s)
+  fold 7  best_val_auc=0.7675  test_auc=0.6500  acc=0.6437  mcc=0.1914  (10s)
+  fold 8  best_val_auc=0.8012  test_auc=0.6335  acc=0.6207  mcc=0.2349  (7s)
+  fold 9  best_val_auc=0.7125  test_auc=0.6487  acc=0.6552  mcc=0.2513  (11s)
+
+[cv] === MPNN ===
+  fold 0  best_val_auc=0.7281  test_auc=0.6117  acc=0.6437  mcc=0.2475  (407s)
+  fold 1  best_val_auc=0.7548  test_auc=0.6272  acc=0.5814  mcc=0.1086  (554s)
+  fold 2  best_val_auc=0.7627  test_auc=0.5749  acc=0.5747  mcc=0.1457  (703s)
+  fold 3  best_val_auc=0.6728  test_auc=0.6460  acc=0.4943  mcc=0.0843  (301s)
+  fold 4  best_val_auc=0.7064  test_auc=0.6347  acc=0.6437  mcc=0.2288  (445s)
+  fold 5  best_val_auc=0.6940  test_auc=0.5960  acc=0.5747  mcc=0.1911  (572s)
+  fold 6  best_val_auc=0.7421  test_auc=0.7563  acc=0.7011  mcc=0.4034  (420s)
+  fold 7  best_val_auc=0.7552  test_auc=0.6034  acc=0.6092  mcc=0.1378  (711s)
+  fold 8  best_val_auc=0.7756  test_auc=0.6528  acc=0.6552  mcc=0.2895  (340s)
+  fold 9  best_val_auc=0.7640  test_auc=0.6498  acc=0.5632  mcc=0.1051  (802s)
+
+[cv] elapsed 96.4 min
+[cv] per-model summary:
+  GAT         AUROC=0.6706+/-0.0479  ACC=0.5973+/-0.0512  F1=0.6075+/-0.0958  MCC=0.2099+/-0.0750
+  GIN         AUROC=0.6664+/-0.0613  ACC=0.6376+/-0.0434  F1=0.6848+/-0.0557  MCC=0.2578+/-0.0986
+  GCN         AUROC=0.6569+/-0.0433  ACC=0.6191+/-0.0507  F1=0.6500+/-0.0936  MCC=0.2402+/-0.0929
+  GraphSAGE   AUROC=0.6482+/-0.0435  ACC=0.6259+/-0.0534  F1=0.6758+/-0.0880  MCC=0.2298+/-0.0836
+  MPNN        AUROC=0.6353+/-0.0496  ACC=0.6041+/-0.0588  F1=0.6354+/-0.1101  MCC=0.1942+/-0.0999
+
+[cv] wrote results to C:\Users\sifat\Desktop\dili_project\results/cv_per_fold.csv, cv_summary.csv, cv_metrics.csv

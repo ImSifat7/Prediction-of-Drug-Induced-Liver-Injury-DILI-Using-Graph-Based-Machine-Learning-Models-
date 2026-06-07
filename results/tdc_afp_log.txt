@@ -1,0 +1,28 @@
+[afp] device=cpu
+[afp] n=472 tr/va/te = 330/47/95
+
+[afp] seed 42 (1/3) ...
+  sd=42 ep010 loss=0.5149 val=0.8563 test=0.7952 best_val=0.8583 (0s)
+  sd=42 ep020 loss=0.4296 val=0.8250 test=0.8352 best_val=0.8687 (0s)
+  sd=42 ep027 loss=0.3906 val=0.7979 test=0.7919 best_val=0.8687 (0s)
+  sd=42 early-stop ep27
+  --> seed 42: val_auc=0.8687 test_auc=0.7891
+
+[afp] seed 7 (2/3) ...
+  sd=7 ep010 loss=0.4879 val=0.8646 test=0.8677 best_val=0.8750 (0s)
+  sd=7 ep020 loss=0.4121 val=0.8771 test=0.8682 best_val=0.8771 (0s)
+  sd=7 ep030 loss=0.3786 val=0.8313 test=0.8418 best_val=0.8771 (1s)
+  sd=7 ep040 loss=0.3981 val=0.8875 test=0.8154 best_val=0.8875 (1s)
+  sd=7 ep049 loss=0.3484 val=0.8792 test=0.8074 best_val=0.8875 (0s)
+  sd=7 early-stop ep49
+  --> seed 7: val_auc=0.8875 test_auc=0.8211
+
+[afp] seed 13 (3/3) ...
+  sd=13 ep010 loss=0.4975 val=0.8500 test=0.8545 best_val=0.8542 (1s)
+  sd=13 ep020 loss=0.4280 val=0.8458 test=0.8616 best_val=0.8625 (1s)
+  sd=13 ep026 loss=0.3932 val=0.8500 test=0.8418 best_val=0.8625 (0s)
+  sd=13 early-stop ep26
+  --> seed 13: val_auc=0.8625 test_auc=0.8479
+
+[afp] MEAN-of-3 test: AUROC=0.8366
+[afp] wrote tdc_attentivefp_*.npz

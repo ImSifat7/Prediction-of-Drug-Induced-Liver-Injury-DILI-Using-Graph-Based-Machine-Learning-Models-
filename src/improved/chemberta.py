@@ -36,6 +36,9 @@ from sklearn.metrics import (
 )
 
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from rdkit import Chem, RDLogger
+
+RDLogger.DisableLog("rdApp.*")
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -55,18 +58,50 @@ DEFAULT_SEEDS = [42, 7, 13]
 
 
 class SmilesDataset(Dataset):
-    def __init__(self, smiles: List[str], labels: np.ndarray, tokenizer, max_len: int):
+    """Dataset for ChemBERTa fine-tuning, optional on-the-fly SMILES augmentation.
+
+    Why augment:
+      - ChemBERTa sees the SMILES as a token sequence — the same molecule has
+        many valid SMILES strings (random atom ordering). Different orderings
+        give different token sequences, which is a free way to ~5–10x the
+        effective training set on a small dataset like DILIrank (521 train rows).
+      - Crucial: augment only in training mode. Val/test must use canonical
+        SMILES so the test number is stable and reproducible.
+
+    augment: probability of returning a random SMILES variant per __getitem__
+             call. 0.0 = always canonical (eval/test). ~0.8 in training.
+    """
+
+    def __init__(self, smiles: List[str], labels: np.ndarray, tokenizer, max_len: int,
+                 augment: float = 0.0):
         self.smiles = smiles
         self.labels = labels
         self.tok = tokenizer
         self.max_len = max_len
+        self.augment = augment
+        # Pre-parse to RDKit mols once. None for any invalid input.
+        self._mols = [Chem.MolFromSmiles(s) for s in smiles]
 
     def __len__(self):
         return len(self.smiles)
 
+    def _smiles_at(self, i: int) -> str:
+        if self.augment <= 0.0:
+            return self.smiles[i]
+        mol = self._mols[i]
+        if mol is None:
+            return self.smiles[i]
+        if np.random.random() > self.augment:
+            return self.smiles[i]  # keep canonical (1-augment) of the time
+        try:
+            return Chem.MolToSmiles(mol, canonical=False, doRandom=True)
+        except Exception:
+            return self.smiles[i]
+
     def __getitem__(self, i: int):
+        smi = self._smiles_at(i)
         enc = self.tok(
-            self.smiles[i],
+            smi,
             truncation=True,
             padding="max_length",
             max_length=self.max_len,
@@ -124,9 +159,9 @@ def train_one_seed(
     crit = nn.BCEWithLogitsLoss(pos_weight=pos_w)
     opt = torch.optim.AdamW(model.parameters(), lr=LR, weight_decay=WEIGHT_DECAY)
 
-    tr_ds = SmilesDataset(smiles_tr, y_tr, tokenizer, MAX_LEN)
-    va_ds = SmilesDataset(smiles_va, y_va, tokenizer, MAX_LEN)
-    te_ds = SmilesDataset(smiles_te, y_te, tokenizer, MAX_LEN)
+    tr_ds = SmilesDataset(smiles_tr, y_tr, tokenizer, MAX_LEN, augment=0.8)
+    va_ds = SmilesDataset(smiles_va, y_va, tokenizer, MAX_LEN, augment=0.0)
+    te_ds = SmilesDataset(smiles_te, y_te, tokenizer, MAX_LEN, augment=0.0)
     tr_dl = DataLoader(tr_ds, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
     va_dl = DataLoader(va_ds, batch_size=BATCH_SIZE, shuffle=False, num_workers=0)
     te_dl = DataLoader(te_ds, batch_size=BATCH_SIZE, shuffle=False, num_workers=0)
@@ -245,15 +280,25 @@ def main():
     val_probs_mean = np.mean(np.stack(val_probs_seeds), axis=0)
     test_probs_mean = np.mean(np.stack(test_probs_seeds), axis=0)
 
+    # Save per-seed predictions as separate columns so the meta-learner can
+    # treat each seed as an independent base model (greatly improves stacking
+    # — XGBoost benefits from seeing the spread between seeds, not just the mean).
+    seed_test_cols = {f"ChemBERTa_s{seed}": test_probs_seeds[i]
+                      for i, seed in enumerate(seeds)}
+    seed_val_cols = {f"ChemBERTa_s{seed}": val_probs_seeds[i]
+                     for i, seed in enumerate(seeds)}
+
     np.savez(
         results_dir / "chemberta_test_probs.npz",
         y_true=y_te.astype(np.int64),
         ChemBERTa=test_probs_mean,
+        **seed_test_cols,
     )
     np.savez(
         results_dir / "chemberta_val_probs.npz",
         y_true=y_va.astype(np.int64),
         ChemBERTa=val_probs_mean,
+        **seed_val_cols,
     )
     pd.DataFrame(metric_rows).to_csv(results_dir / "chemberta_metrics.csv", index=False)
 

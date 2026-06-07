@@ -1,5 +1,6 @@
 {
   "method": "optuna_tpe",
+  "best_value": 0.7216450216450218,
   "params": {
     "lr": 0.0005954553793888993,
     "weight_decay": 0.0013826232179369874,
@@ -8,6 +9,5 @@
     "dropout": 0.34301794076057535,
     "optimizer_name": "adam",
     "batch_size": 32
-  },
-  "best_value": 0.7030303030303031
+  }
 }

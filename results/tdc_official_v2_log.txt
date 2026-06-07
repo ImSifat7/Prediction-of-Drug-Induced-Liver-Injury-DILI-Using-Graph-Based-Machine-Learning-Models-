@@ -1,0 +1,30 @@
+[v2] DILI official  train_val=379 test=96
+[v2] precomputed FP blocks [('desc', 217), ('morgan', 2048), ('avalon', 512), ('erg', 315), ('maccs', 167)] in 5s
+
+[v2] === screening (model x feature-set), ranked by mean VAL-AUROC ===
+  desc_morgan  xgb      val=0.8410  test=0.9193+/-0.021  (6s)
+  desc_morgan  lgbm     val=0.8405  test=0.9073+/-0.014  (2s)
+  desc_morgan  cat      val=0.8394  test=0.9094+/-0.016  (14s)
+  rich         xgb      val=0.8624  test=0.9083+/-0.017  (6s)
+  rich         lgbm     val=0.8686  test=0.8923+/-0.020  (2s)
+  rich         cat      val=0.8417  test=0.9096+/-0.020  (32s)
+  rich_mf      xgb      val=0.8636  test=0.9103+/-0.013  (8s)
+  rich_mf      lgbm     val=0.8686  test=0.8923+/-0.020  (3s)
+  rich_mf      cat      val=0.8413  test=0.9113+/-0.017  (31s)
+  desc_morgan  ENS4     val=0.8427  test=0.9202+/-0.014
+  rich         ENS4     val=0.8650  test=0.9090+/-0.017
+  rich_mf      ENS4     val=0.8637  test=0.9090+/-0.016
+
+[v2] VAL-SELECTED WINNER: rich_mf / lgbm  val=0.8686  test=0.8923
+
+[v2] Optuna-tuning lgbm on VAL (30 trials) ...
+[v2] best val-AUROC=0.8718  params={'n_estimators': 300, 'max_depth': 7, 'lr': 0.025828337319638957, 'reg_lambda': 1.163672298048562, 'subsample': 0.6593008425262887, 'colsample': 0.7759053810312556}
+
+=== FINAL OFFICIAL TDC DILI (val-selected, bagged-5) ===
+  config        = rich_mf / lgbm  (Optuna-tuned)
+  val AUROC     = 0.8670
+  TEST AUROC    = 0.8863 +/- 0.0195   (per-seed [0.9113, 0.9065, 0.8748, 0.8783, 0.8604])
+  bootstrap 95% CI = [0.8152, 0.9526]
+  leaderboard: AttentiveFP 0.886 | MapLight+GNN 0.917 | AttrMasking 0.919 | ZairaChem 0.925
+  tuned params  = {'n_estimators': 300, 'max_depth': 7, 'lr': 0.025828337319638957, 'reg_lambda': 1.163672298048562, 'subsample': 0.6593008425262887, 'colsample': 0.7759053810312556}
+[v2] saved -> results/tdc_official_search.csv, tdc_official_final.csv
