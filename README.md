@@ -11,6 +11,7 @@ A machine-learning pipeline for predicting **Drug-Induced Liver Injury (DILI)** 
 - **4 gradient-boosting backends** (XGBoost, LightGBM, CatBoost, HistGB) with Optuna tuning and a stacking / averaging ensemble.
 - **Statistical rigor** — DeLong / Wilcoxon / McNemar tests + 95 % bootstrap confidence intervals.
 - **Honest finding** — added complexity (richer fingerprints, foundation-model embeddings, hyperparameter tuning) does **not** beat a simple descriptor+fingerprint model on this small dataset; all configurations are within the bootstrap CI.
+- **Mechanistic interpretability** — known reactive-metabolite toxicophores (sulfonamide, aromatic amine, nitroaromatic, furan, N-oxide) are **significantly enriched** among DILI-positive drugs (Fisher exact *p* < 0.05), linking model behaviour to established hepatotoxicity mechanisms — even though, being already encoded by fingerprints, they add no significant AUROC.
 
 ## Dataset
 
@@ -57,6 +58,15 @@ The graph-based models that motivate the project title, compared on the TDC-DILI
 > The earlier DILIrank-split exploration (AUROC ≈ 0.69–0.72 per GNN) is retained in `results/` for reference; it used a harder home-made split and is superseded by the benchmark results above.
 
 See [`results/tdc_official_search.csv`](results/tdc_official_search.csv) and [`results/tdc_official_final.csv`](results/tdc_official_final.csv) for the full official-benchmark numbers, and [`results/summary.txt`](results/summary.txt) for the complete report.
+
+### 3. Mechanism-informed structural alerts — ablation & interpretability
+
+We added 31 **mechanism-informed structural-alert features** — known reactive-metabolite / hepatotoxicity toxicophores (nitroaromatic, aromatic amine, sulfonamide, furan, Michael acceptor, quinone, …) plus PAINS / Brenk / NIH filter catalogs — and re-ran the official val-selected protocol ([`src/improved/tdc_alerts.py`](src/improved/tdc_alerts.py), [`tdc_alerts_rigor.py`](src/improved/tdc_alerts_rigor.py)).
+
+- **Predictively, they add nothing significant**: mean ΔAUROC **+0.002**, paired Wilcoxon **p = 0.12**, DeLong **p > 0.37**. The Morgan fingerprint already encodes these substructures, so explicit alerts are redundant (0.4 % of model importance). This is a *third independent confirmation* that ~0.89–0.92 is the dataset ceiling.
+- **But they are mechanistically informative**: several toxicophores are **significantly enriched** among DILI-positive drugs (Fisher exact, train/val) vs the 49 % base rate — sulfonamide 96 %, nitroaromatic 91 %, N-oxide 91 %, furan 100 %, aromatic amine 79 %, aromatic halide 67 % (all *p* < 0.05). See [`results/tdc_alerts_interpret.csv`](results/tdc_alerts_interpret.csv).
+
+> **Takeaway:** the value of structural alerts here is **interpretability, not accuracy** — the simple validation-selected model (AUROC 0.886) is still the one to report.
 
 ## Quick start
 
