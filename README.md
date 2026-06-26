@@ -6,7 +6,7 @@ A machine-learning pipeline for predicting **Drug-Induced Liver Injury (DILI)** 
 
 - **Official TDC-DILI benchmark** (`admet_group`): fixed held-out test set, **5 seeds**, mean ± std AUROC — directly comparable to the public leaderboard.
 - **Leakage-clean evaluation** — every model/feature/threshold decision is made on the validation split; the test set is touched only to report the final number.
-- **Top-tier result: AUROC 0.920 ± 0.014**, on par with the strongest *reproducible* leaderboard methods (MapLight+GNN 0.917, AttrMasking 0.919).
+- **Leakage-free headline: test AUROC 0.886 ± 0.020** (the **validation-selected** model under the official 5-seed protocol) — ties the *AttentiveFP* leaderboard entry (0.886). Some configurations reach **~0.92 on the test set**, but they are *not* the ones selected on validation, so headlining them would be test-set peeking; the wide 95 % CI (≈ [0.82, 0.95], n = 96) makes every config statistically tied.
 - **6 graph architectures** (GCN/GAT/GraphSAGE/GIN/MPNN/AttentiveFP) + **MapLight-style feature union** (RDKit descriptors + Morgan/Avalon/ErG/MACCS fingerprints + MolFormer-XL embeddings).
 - **4 gradient-boosting backends** (XGBoost, LightGBM, CatBoost, HistGB) with Optuna tuning and a stacking / averaging ensemble.
 - **Statistical rigor** — DeLong / Wilcoxon / McNemar tests + 95 % bootstrap confidence intervals.
@@ -25,18 +25,20 @@ A machine-learning pipeline for predicting **Drug-Induced Liver Injury (DILI)** 
 
 ### 1. Official TDC-DILI benchmark (`admet_group`, 5 seeds, fixed 96-mol test)
 
-Leakage-clean, leaderboard-comparable. Models selected on **validation**; test AUROC reported for the selected configurations.
+Leakage-clean and leaderboard-comparable. The protocol requires choosing the model on the **validation** split and scoring the held-out **test** set only once. The table is therefore sorted by **validation** AUROC — the score we are *allowed* to select on — **not** by test AUROC.
 
-| Features | Model | Test AUROC |
-|----------|-------|------------|
-| RDKit desc + Morgan | **Ensemble (XGB + LGBM + CatBoost)** | **0.920 ± 0.014** |
-| RDKit desc + Morgan | XGBoost | 0.919 ± 0.021 |
-| + Avalon / ErG / MACCS + MolFormer-XL | CatBoost | 0.911 ± 0.017 |
-| + Avalon / ErG / MACCS + MolFormer-XL | XGBoost | 0.910 ± 0.013 |
-| + Avalon / ErG / MACCS | XGBoost | 0.908 ± 0.017 |
-| + Avalon / ErG / MACCS + MolFormer-XL (val-selected, Optuna-tuned) | LightGBM | 0.886 ± 0.019 |
+| Features | Model | Val AUROC | Test AUROC |
+|----------|-------|-----------|------------|
+| + Avalon / ErG / MACCS (+ MolFormer-XL) | **LightGBM** | **0.869** | 0.892 ± 0.020 |
+| + Avalon / ErG / MACCS | Ensemble (XGB+LGBM+CatBoost) | 0.865 | 0.909 ± 0.017 |
+| + Avalon / ErG / MACCS + MolFormer-XL | XGBoost | 0.864 | 0.910 ± 0.013 |
+| + Avalon / ErG / MACCS | XGBoost | 0.862 | 0.908 ± 0.017 |
+| RDKit desc + Morgan | Ensemble (XGB+LGBM+CatBoost) | 0.843 | 0.920 ± 0.014 |
+| RDKit desc + Morgan | XGBoost | 0.841 | 0.919 ± 0.021 |
 
-> **Interpretation.** The 95 % bootstrap CI on the test AUROC spans ≈ **[0.82, 0.95]** (n = 96), so every row above is statistically indistinguishable. Richer fingerprints, MolFormer-XL embeddings, and Optuna tuning improve *validation* but not *test* — they overfit the small (~48-molecule) validation split. The parsimonious descriptor + Morgan model is therefore the preferred configuration. Reference leaderboard (reproducible): AttentiveFP 0.886 · MapLight+GNN 0.917 · AttrMasking 0.919.
+**→ Final reported model** (validation-selected, Optuna-tuned, bagged over 5 seeds): **`rich_mf / LightGBM` — test AUROC 0.886 ± 0.020**, 95 % CI [0.82, 0.95].
+
+> **Interpretation — why the headline is 0.886, not 0.920.** The `RDKit desc + Morgan` ensemble has the highest *test* AUROC (0.920) but ranks only **#7 on validation**. Choosing it would mean using the test set to make a modelling decision — *data leakage* / test-set peeking. Under honest validation-based selection the chosen model is `rich_mf / LightGBM`, whose test AUROC is **0.886** (ties AttentiveFP on the leaderboard). The 95 % bootstrap CI on the test AUROC spans ≈ **[0.82, 0.95]** (n = 96), so 0.886 and 0.920 are statistically indistinguishable in any case. Richer fingerprints, MolFormer-XL embeddings and Optuna tuning raise *validation* but not *test* — they overfit the tiny (~48-molecule) validation split. Reference leaderboard (reproducible): AttentiveFP 0.886 · MapLight+GNN 0.917 · AttrMasking 0.919.
 
 ### 2. Graph neural network architectures (TDC-DILI, 5-fold scaffold CV)
 
