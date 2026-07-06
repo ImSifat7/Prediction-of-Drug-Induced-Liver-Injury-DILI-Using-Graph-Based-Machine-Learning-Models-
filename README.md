@@ -12,6 +12,7 @@ A machine-learning pipeline for predicting **Drug-Induced Liver Injury (DILI)** 
 - **Statistical rigor** — DeLong / Wilcoxon / McNemar tests + 95 % bootstrap confidence intervals.
 - **Honest finding** — added complexity (richer fingerprints, foundation-model embeddings, hyperparameter tuning) does **not** beat a simple descriptor+fingerprint model on this small dataset; all configurations are within the bootstrap CI.
 - **Mechanistic interpretability** — known reactive-metabolite toxicophores (sulfonamide, aromatic amine, nitroaromatic, furan, N-oxide) are **significantly enriched** among DILI-positive drugs (Fisher exact *p* < 0.05), linking model behaviour to established hepatotoxicity mechanisms — even though, being already encoded by fingerprints, they add no significant AUROC.
+- **Multi-dataset generalization** — evaluated on **3 independent DILI datasets** (TDC-DILI, DILIrank, DILIst, InChIKey-deduplicated). The model scores 0.89 on TDC-DILI but only **0.66–0.74** on the larger sets, and merging 1,294 extra DILI molecules does **not** help — evidence that TDC-DILI is an easy, saturated slice and the bottleneck is the benchmark, not the model.
 
 ## Dataset
 
@@ -67,6 +68,26 @@ We added 31 **mechanism-informed structural-alert features** — known reactive-
 - **But they are mechanistically informative**: several toxicophores are **significantly enriched** among DILI-positive drugs (Fisher exact, train/val) vs the 49 % base rate — sulfonamide 96 %, nitroaromatic 91 %, N-oxide 91 %, furan 100 %, aromatic amine 79 %, aromatic halide 67 % (all *p* < 0.05). See [`results/tdc_alerts_interpret.csv`](results/tdc_alerts_interpret.csv).
 
 > **Takeaway:** the value of structural alerts here is **interpretability, not accuracy** — the simple validation-selected model (AUROC 0.886) is still the one to report.
+
+### 4. Generalization across multiple DILI datasets
+
+We evaluated the selected model on **three independent DILI benchmarks**, standardized to canonical SMILES + binary label and **deduplicated by InChIKey** to prevent cross-dataset leakage ([`src/improved/multi_dataset.py`](src/improved/multi_dataset.py)): **TDC-DILI** (475), **DILIrank** (881), **DILIst** (1096, [sourced](data/external/)).
+
+Cross-dataset AUROC (train row → test column; diagonal = 5-fold CV):
+
+| train ↓ / test → | TDC-DILI | DILIrank | DILIst |
+|---|---|---|---|
+| **TDC-DILI** | **0.892** | 0.664 | 0.635 |
+| **DILIrank** | 0.819 | **0.739** | 0.698 |
+| **DILIst** | 0.669 | 0.705 | **0.664** |
+
+- **TDC-DILI is an easy slice**: the model scores 0.89 within TDC but only **0.66–0.74** within the larger DILIrank/DILIst — and TDC-trained models **do not transfer** (drop to ~0.64). The headline benchmark number overstates real-world DILI difficulty.
+- **More data does not help**: merging DILIrank + DILIst (1,294 extra molecules, leakage-filtered) into training changed TDC test AUROC by **−0.02** (DeLong *p* = 0.63, not significant). The benchmark is saturated — see [`results/multi_dataset_crossval.csv`](results/multi_dataset_crossval.csv), [`multi_dataset_merged.csv`](results/multi_dataset_merged.csv).
+
+### 5. Hyperparameter optimization (Optuna) and model selection
+
+- **Optimizer** — the GNNs train with **Adam**; the gradient-boosting models are tuned with **Optuna** (TPE, [`src/improved/optimizer_demo.py`](src/improved/optimizer_demo.py)). Optuna raised *validation* AUROC 0.841 → 0.860 (top drivers: `n_estimators`, `colsample`, `learning_rate`), but the gain does **not** reach test — small-validation-set overfitting. See [`results/optuna_history.png`](results/optuna_history.png).
+- **Selected model** — **RDKit descriptors + Morgan → gradient boosting (XGBoost/LightGBM)**, chosen on validation AUROC + parsimony + robustness; **AttentiveFP** is the best graph model. Reported leakage-free headline: **AUROC 0.886 ± 0.020**. Across every experiment the **dataset, not the model, is the bottleneck**.
 
 ## Quick start
 
