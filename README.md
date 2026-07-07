@@ -12,7 +12,8 @@ A machine-learning pipeline for predicting **Drug-Induced Liver Injury (DILI)** 
 - **Statistical rigor** — DeLong / Wilcoxon / McNemar tests + 95 % bootstrap confidence intervals.
 - **Honest finding** — added complexity (richer fingerprints, foundation-model embeddings, hyperparameter tuning) does **not** beat a simple descriptor+fingerprint model on this small dataset; all configurations are within the bootstrap CI.
 - **Mechanistic interpretability** — known reactive-metabolite toxicophores (sulfonamide, aromatic amine, nitroaromatic, furan, N-oxide) are **significantly enriched** among DILI-positive drugs (Fisher exact *p* < 0.05), linking model behaviour to established hepatotoxicity mechanisms — even though, being already encoded by fingerprints, they add no significant AUROC.
-- **Multi-dataset generalization** — evaluated on **3 independent DILI datasets** (TDC-DILI, DILIrank, DILIst, InChIKey-deduplicated). The model scores 0.89 on TDC-DILI but only **0.66–0.74** on the larger sets, and merging 1,294 extra DILI molecules does **not** help — evidence that TDC-DILI is an easy, saturated slice and the bottleneck is the benchmark, not the model.
+- **Multi-dataset generalization** — evaluated on **3 DILI datasets** (TDC-DILI, DILIrank, official FDA DILIst 1,165, InChIKey-deduplicated). The model scores 0.89 on TDC-DILI but only **0.71–0.74** on the larger sets, and merging 1,221 extra DILI molecules does **not** help — TDC-DILI is an easy, saturated slice.
+- **Realistic-task result** — trained properly on the full **FDA DILIst (1,165 drugs)** with a gradient-boosting ensemble: **AUROC 0.72 ± 0.02**, with a learning curve that plateaus — the honest real-world DILI number, limited by molecular representation rather than data volume.
 
 ## Dataset
 
@@ -71,18 +72,27 @@ We added 31 **mechanism-informed structural-alert features** — known reactive-
 
 ### 4. Generalization across multiple DILI datasets
 
-We evaluated the selected model on **three independent DILI benchmarks**, standardized to canonical SMILES + binary label and **deduplicated by InChIKey** to prevent cross-dataset leakage ([`src/improved/multi_dataset.py`](src/improved/multi_dataset.py)): **TDC-DILI** (475), **DILIrank** (881), **DILIst** (1096, [sourced](data/external/)).
+We evaluated the selected model on **three DILI benchmarks**, standardized to canonical SMILES + binary label and **deduplicated by InChIKey** to prevent cross-dataset leakage ([`src/improved/multi_dataset.py`](src/improved/multi_dataset.py)): **TDC-DILI** (475), **DILIrank** (881), and the **official FDA DILIst** (1165; Thakkar et al. 2020, drug names mapped to structure via PubChem — [`src/improved/map_dilist_smiles.py`](src/improved/map_dilist_smiles.py)).
 
 Cross-dataset AUROC (train row → test column; diagonal = 5-fold CV):
 
 | train ↓ / test → | TDC-DILI | DILIrank | DILIst |
 |---|---|---|---|
-| **TDC-DILI** | **0.892** | 0.664 | 0.635 |
-| **DILIrank** | 0.819 | **0.739** | 0.698 |
-| **DILIst** | 0.669 | 0.705 | **0.664** |
+| **TDC-DILI** | **0.892** | 0.664 | 0.579 |
+| **DILIrank** | 0.819 | **0.739** | 0.674 |
+| **DILIst** | 0.634 | 0.701 | **0.713** |
 
-- **TDC-DILI is an easy slice**: the model scores 0.89 within TDC but only **0.66–0.74** within the larger DILIrank/DILIst — and TDC-trained models **do not transfer** (drop to ~0.64). The headline benchmark number overstates real-world DILI difficulty.
-- **More data does not help**: merging DILIrank + DILIst (1,294 extra molecules, leakage-filtered) into training changed TDC test AUROC by **−0.02** (DeLong *p* = 0.63, not significant). The benchmark is saturated — see [`results/multi_dataset_crossval.csv`](results/multi_dataset_crossval.csv), [`multi_dataset_merged.csv`](results/multi_dataset_merged.csv).
+- **TDC-DILI is an easy slice**: the model scores 0.89 within TDC but only **0.71–0.74** within the larger DILIrank/DILIst — and TDC-trained models **do not transfer** (drop to 0.58–0.66). The headline benchmark number overstates real-world DILI difficulty.
+- **More data does not help**: merging DILIrank + DILIst (1,221 extra molecules, leakage-filtered) into training changed TDC test AUROC by **−0.04** (DeLong *p* = 0.36, not significant). The benchmark is saturated — see [`results/multi_dataset_crossval.csv`](results/multi_dataset_crossval.csv), [`multi_dataset_merged.csv`](results/multi_dataset_merged.csv).
+
+### 4b. The realistic task — properly trained on the full FDA DILIst (1,165 drugs)
+
+Because TDC-DILI is saturated, we trained the model *properly* on the full official DILIst — the realistic, harder task — with repeated 5-fold CV (3 repeats) and a gradient-boosting ensemble ([`src/improved/dilist_model.py`](src/improved/dilist_model.py)):
+
+- **Best model: rich features + XGB/LGBM/CatBoost ensemble → AUROC 0.719 ± 0.024** (out-of-fold 95 % CI [0.69, 0.75]). Here the **richer feature set helps** (0.712 → 0.719) — the opposite of the tiny TDC slice, because more data supports more features.
+- **Learning curve** ([`results/dilist_learning_curve.png`](results/dilist_learning_curve.png)): AUROC rises from 0.63 (~190 drugs) to 0.72 (~750 drugs) then **plateaus** — performance is now limited by the molecular *representation*, not data volume. More structure-only labels will not push past ~0.72; richer (in-vitro / mechanistic) signal is the real lever.
+
+> **This is the honest headline for real-world DILI:** **AUROC ≈ 0.72** on 1,165 FDA-classified drugs — well below the 0.89 on the easy 475-drug slice, and a far more faithful estimate of clinical DILI prediction.
 
 ### 5. Hyperparameter optimization (Optuna) and model selection
 

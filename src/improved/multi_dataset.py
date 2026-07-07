@@ -107,8 +107,8 @@ def main():
     print("=== Standardizing datasets (canonical SMILES + InChIKey dedup) ===", flush=True)
     tdc = standardize(pd.read_csv(BASE / "data/tdc_dili.csv"), "Drug", "Y", "TDC-DILI")
     dilirank = standardize(pd.read_csv(BASE / "data/dili_with_smiles.csv"), "smiles", "label", "DILIrank")
-    dilist = standardize(pd.read_csv(BASE / "data/external/dilist_goldstandard_1111.csv"),
-                         "smiles_r", "TOXICITY", "DILIst")
+    dilist = standardize(pd.read_csv(BASE / "data/external/dilist_official_1279.csv"),
+                         "smiles", "label", "DILIst")
     datasets = {"TDC-DILI": tdc, "DILIrank": dilirank, "DILIst": dilist}
 
     # ---- overlap matrix ----
