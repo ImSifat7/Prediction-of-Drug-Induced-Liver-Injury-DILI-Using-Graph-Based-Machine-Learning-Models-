@@ -117,9 +117,34 @@ The final model is re-evaluated under a fully specified, leakage-free protocol (
 - **Calibration (honest negative result)** — the raw bagged-XGBoost probabilities are already well calibrated; Platt scaling does **not** improve the Brier score (0.106 → 0.114). Reported as measured.
 - **Sample-level predictions** released for the test set and every external set (`results/predictions_*.csv`: dataset, mol_id, SMILES, y_true, y_prob, y_pred, threshold, error type), plus [`results/reproducibility.json`](results/reproducibility.json) (seeds + library versions).
 
+### 7. We tested the leakage explanation — and refuted it (the key result)
+
+The obvious explanation for the benchmark→external collapse is *structural leakage*: maybe TDC scores 0.92 simply because its test molecules look like its training molecules. We tested that hypothesis directly ([`src/improved/applicability_domain.py`](src/improved/applicability_domain.py)) — **and the data refute it.**
+
+**(a) The benchmark is *not* structurally closer to its training set:**
+
+| Set | n | Median max-Tanimoto to train | % sim ≥ 0.5 |
+|---|---|---|---|
+| TDC test (benchmark) | 96 | **0.286** | 10.4 |
+| DILIrank external | 625 | 0.289 | 17.4 |
+| DILIst external | 827 | 0.304 | 20.2 |
+
+**(b) At *matched* chemical similarity the gap persists — and widens:**
+
+| Min Tanimoto to train | TDC test | DILIrank ext | DILIst ext |
+|---|---|---|---|
+| ≥ 0.00 | 0.919 | 0.632 | 0.564 |
+| ≥ 0.30 | **0.991** | 0.682 | 0.573 |
+| ≥ 0.35 | **0.996** | 0.721 | 0.565 |
+
+Chemical proximity therefore **cannot** explain the benchmark's advantage. That rules out near-duplicate/structural leakage and isolates **label curation** as the cause: TDC keeps only the cleanly separable `vMost`/`vNo` drugs and discards the ambiguous middle. **The benchmark is optimistic not because it leaks structures, but because it asks an easier question** — which independently corroborates the 0.708 in-domain ceiling.
+
+**(c) A deployable applicability domain.** Restricting predictions to molecules within **Tanimoto ≥ 0.35** of the training set lifts external AUROC over the 0.70 useful-screen level (**0.721** at 36.5 % coverage; 0.779 at a 0.60 cut-off). Molecules outside the domain should be reported as *out-of-domain*, not scored confidently. See [`results/applicability_domain.csv`](results/applicability_domain.csv), [`results/similarity_distributions.csv`](results/similarity_distributions.csv), [`results/figures/applicability_domain.png`](results/figures/applicability_domain.png).
+
 ```bash
-python -m src.improved.comprehensive_eval   # full panel, CIs, chem-space, calibration, prediction CSVs, figures
-python -m src.improved.main_comparison      # main comparison table + improved-vs-current pipeline
+python -m src.improved.comprehensive_eval    # full panel, CIs, chem-space, calibration, prediction CSVs, figures
+python -m src.improved.main_comparison       # main comparison table + improved-vs-current pipeline
+python -m src.improved.applicability_domain  # leakage refutation + applicability domain
 ```
 
 ## Quick start
