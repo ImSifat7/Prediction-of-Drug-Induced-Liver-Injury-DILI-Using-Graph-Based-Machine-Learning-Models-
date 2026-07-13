@@ -14,3 +14,12 @@ data/tdc_benchmark/
 # training artifacts
 catboost_info/
 _nbcheck.ipynb
+
+# thesis report / slides / templates — kept local, not published
+THESIS_REPORT.md
+THESIS_REPORT.docx
+THESIS_PLAN.md
+*.docx
+*.pptx
+*.pdf
+Templete resource/
