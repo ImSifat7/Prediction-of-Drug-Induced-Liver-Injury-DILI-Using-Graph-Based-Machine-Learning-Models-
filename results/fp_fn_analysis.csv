@@ -1,0 +1,54 @@
+dataset,error_type,mol_id,SMILES,y_true,y_prob
+TDC_test,FP,mol_21,Cn1c(=O)c2[nH]c(Br)nc2n(C)c1=O,0,0.9892
+TDC_test,FP,mol_23,Cc1ncc2n1-c1ccc(Cl)cc1C(c1ccccc1F)=NC2,0,0.9757
+TDC_test,FP,mol_62,CCC1(O)CC2CN(CCc3c([nH]c4ccccc34)C(C(=O)OC)(c3cc4c(cc3OC)N(C)C3C(O)(C(=O)OC)C(OC(C)=O)C5(CC)C=CCN6CCC43C65)C2)C1,0,0.9723
+TDC_test,FP,mol_65,Cc1ncc(C[n+]2csc(CCO)c2C)c(N)n1,0,0.9439
+TDC_test,FP,mol_63,CC(=O)Oc1cc2c(s1)CCN(C(C(=O)C1CC1)c1ccccc1F)C2,0,0.9066
+TDC_test,FN,mol_74,CN(C)NN=C1N=CN=C1C(N)=O,1,0.2407
+TDC_test,FN,mol_26,CN1CCN(C2=c3ccccc3=Nc3ccc(Cl)cc3N2)CC1,1,0.4311
+TDC_test,FN,mol_39,CN1C(=O)CCS(=O)(=O)C1c1ccc(Cl)cc1,1,0.4388
+TDC_test,FN,mol_92,CN1CCN(CCCN2c3ccccc3Sc3ccc(Cl)cc32)CC1,1,0.5116
+TDC_test,FN,mol_44,Clc1cccc(Cl)c1NC1=NCCN1,1,0.6242
+TDC_test,FN,mol_86,CCN(CC)Cc1cc(Nc2ccnc3cc(Cl)ccc23)ccc1O,1,0.6258
+TDC_test,FN,mol_54,CC(C(=O)O)c1ccc(N2CC=CC2)c(Cl)c1,1,0.6512
+TDC_test,FN,mol_18,CN1CCN(CCC=C2c3ccccc3Sc3ccc(S(=O)(=O)N(C)C)cc32)CC1,1,0.668
+DILIrank,FP,Apremilast,CCOc1cc(C(CS(C)(=O)=O)N2C(=O)c3cccc(NC(C)=O)c3C2=O)ccc1OC,0,0.9982
+DILIrank,FP,Nitazoxanide,CC(=O)Oc1ccccc1C(=O)Nc1ncc([N+](=O)[O-])s1,0,0.9979
+DILIrank,FP,Flutemetamol f-18,CNc1ccc(-c2nc3ccc(O)cc3s2)cc1F,0,0.9977
+DILIrank,FP,Baloxavir marboxil,COC(=O)OCOc1c2n(ccc1=O)N(C1c3ccccc3SCc3c1ccc(F)c3F)C1COCCN1C2=O,0,0.9966
+DILIrank,FP,Flortaucipir f-18,Fc1ccc(-c2ccc3c(c2)[nH]c2ccncc23)cn1,0,0.9965
+DILIrank,FP,Vericiguat,COC(=O)Nc1c(N)nc(-c2nn(Cc3ccccc3F)c3ncc(F)cc23)nc1N,0,0.9959
+DILIrank,FP,Rifamycin sodium,COC1C=COC2(C)Oc3c(C)c(O)c4c(O)c(cc(O)c4c3C2=O)NC(=O)C(C)=CC=CC(C)C(O)C(C)C(O)C(C)C(OC(C)=O)C1C,0,0.9953
+DILIrank,FP,Riociguat,COC(=O)N(C)c1c(N)nc(-c2nn(Cc3ccccc3F)c3ncccc23)nc1N,0,0.9947
+DILIrank,FP,Flumazenil,CCOC(=O)c1ncn2c1CN(C)C(=O)c1cc(F)ccc1-2,0,0.9942
+DILIrank,FP,Enzalutamide,CNC(=O)c1ccc(N2C(=S)N(c3ccc(C#N)c(C(F)(F)F)c3)C(=O)C2(C)C)cc1F,0,0.9938
+DILIrank,FN,Desvenlafaxine succinate,CN(C)CC(c1ccc(O)cc1)C1(O)CCCCC1,1,0.0009
+DILIrank,FN,Terbutaline sulfate,CC(C)(C)NCC(O)c1cc(O)cc(O)c1,1,0.0009
+DILIrank,FN,Tramadol hydrochloride,COc1cccc(C2(O)CCCCC2CN(C)C)c1,1,0.0018
+DILIrank,FN,Venlafaxine hydrochloride,COc1ccc(C(CN(C)C)C2(O)CCCCC2)cc1,1,0.0021
+DILIrank,FN,Methyldopa,CC(N)(Cc1ccc(O)c(O)c1)C(=O)O,1,0.0023
+DILIrank,FN,Metoprolol tartrate,COCCc1ccc(OCC(O)CNC(C)C)cc1,1,0.0032
+DILIrank,FN,Fingolimod hydrochloride,CCCCCCCCc1ccc(CCC(N)(CO)CO)cc1,1,0.0039
+DILIrank,FN,Milnacipran hydrochloride,CCN(CC)C(=O)C1(c2ccccc2)CC1CN,1,0.0042
+DILIrank,FN,Ethambutol hydrochloride,CCC(CO)NCCNC(CC)CO,1,0.0061
+DILIrank,FN,Mexiletine hydrochloride,Cc1cccc(C)c1OCC(C)N,1,0.0072
+DILIst,FP,nocodazole,COC(=O)Nc1nc2ccc(C(=O)c3cccs3)cc2[nH]1,0,0.9992
+DILIst,FP,nitazoxanide,CC(=O)Oc1ccccc1C(=O)Nc1ncc([N+](=O)[O-])s1,0,0.9979
+DILIst,FP,isoxicam,Cc1cc(NC(=O)C2=C(O)c3ccccc3S(=O)(=O)N2C)no1,0,0.9972
+DILIst,FP,cefditoren,CON=C(C(=O)NC1C(=O)N2C(C(=O)O)=C(C=Cc3scnc3C)CSC12)c1csc(N)n1,0,0.9958
+DILIst,FP,sulfabenzamide,Nc1ccc(S(=O)(=O)NC(=O)c2ccccc2)cc1,0,0.9947
+DILIst,FP,zomepirac,Cc1cc(CC(=O)O)n(C)c1C(=O)c1ccc(Cl)cc1,0,0.9945
+DILIst,FP,flumazenil,CCOC(=O)c1ncn2c1CN(C)C(=O)c1cc(F)ccc1-2,0,0.9942
+DILIst,FP,rifapentine,COC1C=COC2(C)Oc3c(C)c(O)c4c(O)c(c(C=NN5CCN(C6CCCC6)CC5)c(O)c4c3C2=O)NC(=O)C(C)=CC=CC(C)C(O)C(C)C(O)C(C)C(OC(C)=O)C1C,0,0.9932
+DILIst,FP,prazosin,COc1cc2nc(N3CCN(C(=O)c4ccco4)CC3)nc(N)c2cc1OC,0,0.9931
+DILIst,FP,folic acid,Nc1nc2ncc(CNc3ccc(C(=O)NC(CCC(=O)O)C(=O)O)cc3)nc2c(=O)[nH]1,0,0.992
+DILIst,FN,desvenlafaxine,CN(C)CC(c1ccc(O)cc1)C1(O)CCCCC1,1,0.0009
+DILIst,FN,terbutaline,CC(C)(C)NCC(O)c1cc(O)cc(O)c1,1,0.0009
+DILIst,FN,Iloprost,CC#CCC(C)C(O)C=CC1C(O)CC2CC(=CCCCC(=O)O)CC21,1,0.0015
+DILIst,FN,venlafaxine,COc1ccc(C(CN(C)C)C2(O)CCCCC2)cc1,1,0.0021
+DILIst,FN,methyldopa,CC(N)(Cc1ccc(O)c(O)c1)C(=O)O,1,0.0023
+DILIst,FN,Dihydrocodeine,COc1ccc2c3c1OC1C(O)CCC4C(C2)N(C)CCC341,1,0.0025
+DILIst,FN,metoprolol,COCCc1ccc(OCC(O)CNC(C)C)cc1,1,0.0032
+DILIst,FN,Phenylephrine,CNCC(O)c1cccc(O)c1,1,0.0037
+DILIst,FN,milnacipran,CCN(CC)C(=O)C1(c2ccccc2)CC1CN,1,0.0042
+DILIst,FN,Netilmicin,CCNC1CC(N)C(OC2OC(CN)=CCC2N)C(O)C1OC1OCC(C)(O)C(NC)C1O,1,0.0049

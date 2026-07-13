@@ -99,6 +99,29 @@ Because TDC-DILI is saturated, we trained the model *properly* on the full offic
 - **Optimizer** — the GNNs train with **Adam**; the gradient-boosting models are tuned with **Optuna** (TPE, [`src/improved/optimizer_demo.py`](src/improved/optimizer_demo.py)). Optuna raised *validation* AUROC 0.841 → 0.860 (top drivers: `n_estimators`, `colsample`, `learning_rate`), but the gain does **not** reach test — small-validation-set overfitting. See [`results/optuna_history.png`](results/optuna_history.png).
 - **Selected model** — **RDKit descriptors + Morgan → gradient boosting (XGBoost/LightGBM)**, chosen on validation AUROC + parsimony + robustness; **AttentiveFP** is the best graph model. Reported leakage-free headline: **AUROC 0.886 ± 0.020**. Across every experiment the **dataset, not the model, is the bottleneck**.
 
+### 6. Comprehensive leakage-free evaluation (full metric suite, calibration, chemical space)
+
+The final model is re-evaluated under a fully specified, leakage-free protocol ([`src/improved/comprehensive_eval.py`](src/improved/comprehensive_eval.py)):
+
+- **Frozen threshold** — the decision threshold is set by **Youden's J on 5-fold out-of-fold predictions inside the training set only** (0.691), then **frozen** and applied unchanged to the test set and every external dataset. No test/external label ever touches the operating point.
+- **4-way overlap removal** — external molecules overlapping training by exact SMILES, canonical (standardised) SMILES, InChIKey-14, or Bemis–Murcko scaffold are removed; duplicates and conflicting labels dropped ([`results/overlap_removal.csv`](results/overlap_removal.csv)).
+- **Full metric panel + bootstrap 95 % CIs** — AUROC, PR-AUC, accuracy, F1, MCC, sensitivity, specificity, precision, NPV, confusion matrix, Brier.
+
+| Set | n | AUROC | PR-AUC | ACC | F1 | MCC | Sens | Spec |
+|---|---|---|---|---|---|---|---|---|
+| **Official TDC test** | 96 | **0.919** | 0.898 | 0.865 | 0.866 | **0.731** | 0.840 | 0.891 |
+| DILIrank external (molecule-disjoint) | 625 | 0.632 | 0.686 | 0.597 | 0.634 | 0.192 | 0.594 | 0.601 |
+| DILIst external (molecule-disjoint) | 827 | 0.564 | 0.688 | 0.545 | 0.591 | 0.109 | 0.516 | 0.597 |
+
+- **Chemical-space analysis explains the external loss** ([`results/chemspace_similarity.csv`](results/chemspace_similarity.csv)): external AUROC rises **monotonically** with each molecule's max Tanimoto similarity to training — DILIrank **0.600** (sim < 0.3) → 0.645 → 0.725 → **0.738** (sim > 0.7). The model keeps benchmark-level skill only where the chemistry resembles training, and decays toward chance on novel chemistry.
+- **Calibration (honest negative result)** — the raw bagged-XGBoost probabilities are already well calibrated; Platt scaling does **not** improve the Brier score (0.106 → 0.114). Reported as measured.
+- **Sample-level predictions** released for the test set and every external set (`results/predictions_*.csv`: dataset, mol_id, SMILES, y_true, y_prob, y_pred, threshold, error type), plus [`results/reproducibility.json`](results/reproducibility.json) (seeds + library versions).
+
+```bash
+python -m src.improved.comprehensive_eval   # full panel, CIs, chem-space, calibration, prediction CSVs, figures
+python -m src.improved.main_comparison      # main comparison table + improved-vs-current pipeline
+```
+
 ## Quick start
 
 ### 1. Environment

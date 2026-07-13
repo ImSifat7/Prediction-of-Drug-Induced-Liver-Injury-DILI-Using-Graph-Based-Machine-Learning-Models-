@@ -11,3 +11,6 @@ __pycache__/
 data/tdc_benchmark/
 # stray empty file
 /python
+# training artifacts
+catboost_info/
+_nbcheck.ipynb

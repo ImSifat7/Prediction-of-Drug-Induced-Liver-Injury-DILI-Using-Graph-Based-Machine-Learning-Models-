@@ -248,12 +248,20 @@ def _best_thr(y, p):
 
 
 def _m(y, p, t):
+    # EDITED 2026-07-12: also emit Sensitivity, Specificity and PR-AUC so the main
+    # model-comparison table can report the full panel for the graph networks on
+    # re-run (previously only AUROC/ACC/F1/MCC were saved).
+    from sklearn.metrics import average_precision_score, confusion_matrix
     yp = (p >= t).astype(int)
+    tn, fp, fn, tp = confusion_matrix(y, yp, labels=[0, 1]).ravel()
     return {
         "AUROC": float(roc_auc_score(y, p)) if len(set(y)) > 1 else float("nan"),
+        "PR_AUC": float(average_precision_score(y, p)) if len(set(y)) > 1 else float("nan"),
         "ACC": float(accuracy_score(y, yp)),
         "F1": float(f1_score(y, yp, zero_division=0)),
         "MCC": float(matthews_corrcoef(y, yp)),
+        "Sensitivity": float(tp / (tp + fn)) if (tp + fn) else 0.0,
+        "Specificity": float(tn / (tn + fp)) if (tn + fp) else 0.0,
     }
 
 
@@ -489,9 +497,13 @@ def main():
     print("\n========== 5-FOLD CV AGGREGATE ==========")
     keys = list(all_fold_results[0].keys())
     agg = {}
+    # EDITED 2026-07-12: aggregate the FULL panel (was AUROC/ACC/F1/MCC only) so the
+    # main model-comparison table can report Sensitivity/Specificity and PR-AUC.
     for k in keys:
-        for met in ("AUROC", "ACC", "F1", "MCC"):
-            vals = [fr[k][met] for fr in all_fold_results]
+        for met in ("AUROC", "PR_AUC", "ACC", "F1", "MCC", "Sensitivity", "Specificity"):
+            vals = [fr[k][met] for fr in all_fold_results if met in fr[k]]
+            if not vals:
+                continue
             agg.setdefault(k, {})[f"{met}_mean"] = float(np.mean(vals))
             agg[k][f"{met}_std"] = float(np.std(vals))
     df = pd.DataFrame(agg).T.reset_index().rename(columns={"index": "method"})

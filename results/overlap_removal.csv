@@ -1,0 +1,3 @@
+dataset,after_dedup,conflicting_labels,duplicates,removed_exact_or_canonical_or_inchikey,external_after_molecule_overlap,removed_scaffold_overlap,external_novel_scaffold
+DILIrank,865,4,22,240,625,124,501
+DILIst,1145,12,30,318,827,170,657

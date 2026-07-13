@@ -1,0 +1,16 @@
+{
+  "seed": 42,
+  "n_bag": 5,
+  "threshold_youden_J": 0.6908,
+  "oof_auroc_trainval": 0.8449,
+  "libraries": {
+    "python": "3.14.2",
+    "numpy": "2.4.4",
+    "pandas": "3.0.2",
+    "scikit-learn": "1.8.0",
+    "xgboost": "3.2.0",
+    "rdkit": "2026.03.1",
+    "scipy": "1.17.1"
+  },
+  "platform": "Windows-11-10.0.26200-SP0"
+}
